@@ -1,0 +1,17 @@
+{
+    "name": "actengage/deployer",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Actengage\\Deployer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jacob Lockard",
+            "email": "jlockard@actengage.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
