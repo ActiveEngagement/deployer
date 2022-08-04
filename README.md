@@ -1,6 +1,6 @@
 # Deployer
 
-This simple package provides an easy way to get, extract, and deploy pre-built artifacts (maybe artifacted with the our GitHub action—coming soon!) to your application.
+This simple package provides an easy way to get, extract, and deploy pre-built artifacts (maybe artifacted with our GitHub action—coming soon!) to your application.
 
 ## Requirements
 
