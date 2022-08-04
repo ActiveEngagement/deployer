@@ -20,13 +20,6 @@ class GetArtifacts extends Command
     public function handle(BundleExtractor $extractor, BundleDeployer $deployer): int
     {
         $extractedPath = $extractor->extract($this->argument('bundle'));
-
-        if (! $extractedPath) {
-            $this->error('Failed to extract the bundle!');
-
-            return 1;
-        }
-
         $deployer->deploy($extractedPath);
 
         return 0;
