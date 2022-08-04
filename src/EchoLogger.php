@@ -9,6 +9,6 @@ class EchoLogger extends AbstractLogger
 {
     public function log($level, string|Stringable $message, array $context = []): void
     {
-        echo($message);
+        echo($message . "\n");
     }
 }
