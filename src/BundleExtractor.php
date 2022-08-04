@@ -32,8 +32,11 @@ class BundleExtractor
      * Extracts a bundle with the given name from its `.tar.gz` file in the bundles directory into a directory with
      * the bundle name in the extraction directory.
      * 
+     * If an extracted bundle with the given bundle name already exists, then a path to the existing extracted bundle is
+     * simply returned.
+     * 
      * @param string $bundleName the name of the bundle to extract.
-     * @return ?string the path to the extracted bundle.
+     * @return string the path to the extracted bundle.
      */
     public function extract(string $bundleName): string
     {
@@ -43,7 +46,7 @@ class BundleExtractor
         $extractedPath = $this->filesystem->joinPaths($this->paths->extractionDir(), $bundleName);
 
         if (file_exists($extractedPath)) {
-            throw new DeployerException("The bundle $bundleName has already been extracted!");
+            return $extractedPath;
         }
 
         mkdir($extractedPath);
