@@ -9,6 +9,8 @@ use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
 use Actengage\Deployer\PathProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use ReflectionClass;
 
 class TestCase extends BaseTestCase
@@ -32,6 +34,7 @@ class TestCase extends BaseTestCase
 
     private function registerBindings(): void
     {
+        $this->app->singleton(LoggerInterface::class, NullLogger::class);
         $this->app->singleton(FilesystemUtility::class);
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
@@ -89,7 +92,7 @@ class TestCase extends BaseTestCase
      */
     private function setUpFilesystem(): void
     {
-        $filesystem = $this->app->get(FilesystemUtility::class);
+        $filesystem = $this->app->make(FilesystemUtility::class);
         $testsDir = $this->testsDir();
         $storageDir = $testsDir.'storage/';
 

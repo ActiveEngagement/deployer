@@ -3,6 +3,7 @@
 namespace Actengage\Deployer;
 
 use FilesystemIterator;
+use Psr\Log\LoggerInterface;
 
 /**
  * Contains various filesystem utilities.
@@ -12,6 +13,10 @@ use FilesystemIterator;
  */
 class FilesystemUtility
 {
+    public function __construct(protected LoggerInterface $logger)
+    {
+    }
+
     /**
      * Joins the given file paths.
      *
@@ -54,10 +59,17 @@ class FilesystemUtility
      */
     public function delete(string $path): void
     {
+        $this->logger->info("Recursively deleting $path");
+        $this->_delete($path);
+    }
+
+    private function _delete(string $path): void
+    {
+        $this->logger->debug("Deleting $path");
         if (is_dir($path)) {
             $files = glob($this->joinPaths($path, '*'), GLOB_MARK);
             foreach ($files as $file) {
-                $this->delete($file);
+                $this->_delete($file);
             }
             rmdir($path);
         } else {
@@ -78,6 +90,13 @@ class FilesystemUtility
      */
     public function copy(string $from, string $to): void
     {
+        $this->logger->info("Recursively copying $from to $to");
+        $this->_copy($from, $to);
+    }
+
+    private function _copy(string $from, string $to): void
+    {
+        $this->logger->debug("Copying $from to $to");
         if (file_exists($to)) {
             throw new DeployerException("The destination $to exists!");
         }

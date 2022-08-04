@@ -5,6 +5,7 @@ namespace Actengage\Deployer;
 use Actengage\Deployer\Console\Commands\GetArtifacts;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Psr\Log\LoggerInterface;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -48,6 +49,10 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->when(BundleDeployer::class)
             ->needs('$artifactRules')
             ->giveConfig('deployer.artifacts');
+
+        $this->app->when(FilesystemUtility::class)
+            ->needs(LoggerInterface::class)
+            ->give(EchoLogger::class);
     }
 
     public function boot()
