@@ -12,7 +12,7 @@ class ServiceProvider extends BaseServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/deployer.php' => config_path('deployer.php'),
-        ]);
+        ], 'deployer-config');
         $this->mergeConfigFrom(
             __DIR__.'/../config/deployer.php', 'deployer'
         );
