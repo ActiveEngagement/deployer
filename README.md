@@ -9,7 +9,18 @@ This simple package provides an easy way to get, extract, and deploy pre-built a
 
 ## Getting Started
 
-Install with Composer:
+Add the repository in `composer.json`:
+
+```json
+"repositories": [
+  {
+    "type": "vcs",
+    "url": "https://github.com/ActiveEngagement/deployer.git"
+  }
+]
+```
+
+And require the package:
 
 ```bash
 composer require actengage/deployer
