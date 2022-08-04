@@ -6,6 +6,11 @@
             "Actengage\\Deployer\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4" : {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Jacob Lockard",
@@ -16,5 +21,9 @@
     "require": {
       "php": "^8.1",
       "laravel/framework": "^9.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.6",
+        "phpunit/phpunit": "^9.5"
     }
 }
