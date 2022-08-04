@@ -18,7 +18,7 @@ class ServiceProvider extends BaseServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                GetArtifacts::class
+                GetArtifacts::class,
             ]);
         }
 
@@ -51,6 +51,5 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot()
     {
-
     }
 }

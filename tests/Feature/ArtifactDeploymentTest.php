@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class ArtifactDeploymentTest extends TestCase
 {
-    function test()
+    public function test()
     {
         $filesystem = app()->make(FilesystemUtility::class);
         $extractor = app()->make(BundleExtractor::class);

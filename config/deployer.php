@@ -56,6 +56,6 @@ return [
     */
 
     'artifacts' => [
-        'build' => 'public/build'
-    ]
+        'build' => 'public/build',
+    ],
 ];

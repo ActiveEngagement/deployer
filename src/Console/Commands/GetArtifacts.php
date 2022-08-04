@@ -2,14 +2,13 @@
 
 namespace Actengage\Deployer\Console\Commands;
 
-use Actengage\Deployer\ArtifactDeployer;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Illuminate\Console\Command;
 
 /**
  * A command that gets pre-built artifacts.
- * 
+ *
  * A custom Artisan command that gets, extracts, and deploys the artifacts in a given bundle.
  */
 class GetArtifacts extends Command
@@ -24,6 +23,7 @@ class GetArtifacts extends Command
 
         if (! $extractedPath) {
             $this->error('Failed to extract the bundle!');
+
             return 1;
         }
 

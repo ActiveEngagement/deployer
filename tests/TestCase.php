@@ -8,7 +8,6 @@ use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\FilesystemUtility;
 use Actengage\Deployer\IPathProvider;
 use Actengage\Deployer\PathProvider;
-use Actengage\Deployer\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionClass;
 
@@ -28,7 +27,7 @@ class TestCase extends BaseTestCase
         $reflector = new ReflectionClass(self::class);
         $path = $reflector->getFileName();
 
-        return dirname($path) . '/';
+        return dirname($path).'/';
     }
 
     private function registerBindings(): void
@@ -60,7 +59,7 @@ class TestCase extends BaseTestCase
             ->give([
                 'artifact1' => 'public/build',
                 'artifact2' => 'public/build2',
-                'artifact3.txt' => 'unrelated/built_file.txt'
+                'artifact3.txt' => 'unrelated/built_file.txt',
             ]);
     }
 
