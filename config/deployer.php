@@ -10,7 +10,7 @@ return [
     | the directory where the original, compressed .tar.gz bundles are stored.
     */
 
-    'bundles_dir' => 'storage/artifact_bundles',
+    'bundles_dir' => env('DEPLOYER_BUNDLES_DIR', 'storage/artifact_bundles'),
 
     /*
     |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ return [
     | complete.
     */
 
-    'extraction_dir' => 'storage/extracted_bundles',
+    'extraction_dir' => env('DEPLOYER_EXTRACTION_DIR', 'storage/extracted_bundles'),
 
     /*
     |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ return [
     | deployment overwrites them.
     */
 
-    'backup_dir' => 'storage/old_artifacts',
+    'backup_dir' => env('DEPLOYER_BACKUP_DIR', 'storage/old_artifacts'),
 
     /*
     |--------------------------------------------------------------------------
