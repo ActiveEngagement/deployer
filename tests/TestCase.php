@@ -6,7 +6,7 @@ use Actengage\Deployer\ArtifactDeployer;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\FilesystemUtility;
-use Actengage\Deployer\IPathProvider;
+use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\PathProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionClass;
@@ -36,7 +36,7 @@ class TestCase extends BaseTestCase
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
         $this->app->singleton(BundleExtractor::class);
-        $this->app->singleton(IPathProvider::class, PathProvider::class);
+        $this->app->singleton(PathProviderInterface::class, PathProvider::class);
 
         $this->app->when(PathProvider::class)
             ->needs('$bundlesDir')

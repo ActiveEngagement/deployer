@@ -2,6 +2,7 @@
 
 namespace Actengage\Deployer;
 
+use Actengage\Deployer\Contracts\PathProvider;
 use PharData;
 
 /**
@@ -21,7 +22,7 @@ class BundleExtractor
      */
     public function __construct(
         protected FilesystemUtility $filesystem,
-        protected IPathProvider $paths
+        protected PathProvider $paths
     ) {
     }
 

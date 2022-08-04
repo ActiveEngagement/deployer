@@ -2,6 +2,7 @@
 
 namespace Actengage\Deployer;
 
+use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\Str;
 
 /**
@@ -9,7 +10,7 @@ use Illuminate\Support\Str;
  *
  * An implementation of `IPathProvider` that resolves relative file paths from the deployment root.
  */
-class PathProvider implements IPathProvider
+class PathProvider implements PathProviderInterface
 {
     public function __construct(
         protected FilesystemUtility $filesystem,

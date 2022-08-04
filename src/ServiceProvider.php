@@ -3,6 +3,7 @@
 namespace Actengage\Deployer;
 
 use Actengage\Deployer\Console\Commands\GetArtifacts;
+use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -26,7 +27,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
         $this->app->singleton(BundleExtractor::class);
-        $this->app->singleton(IPathProvider::class, PathProvider::class);
+        $this->app->singleton(PathProviderInterface::class, PathProvider::class);
 
         $this->app->when(PathProvider::class)
             ->needs('$bundlesDir')

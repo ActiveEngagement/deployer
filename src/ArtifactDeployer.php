@@ -2,6 +2,8 @@
 
 namespace Actengage\Deployer;
 
+use Actengage\Deployer\Contracts\PathProvider;
+
 /**
  * Deploys an artifact.
  *
@@ -19,7 +21,7 @@ class ArtifactDeployer
      */
     public function __construct(
         protected FilesystemUtility $filesystem,
-        protected IPathProvider $paths
+        protected PathProvider $paths
     ) {
     }
 
