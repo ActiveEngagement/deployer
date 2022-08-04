@@ -25,5 +25,12 @@
     "require-dev": {
         "orchestra/testbench": "^7.6",
         "phpunit/phpunit": "^9.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Actengage\\Deployer\\ServiceProvider"
+            ]
+        }
     }
 }
