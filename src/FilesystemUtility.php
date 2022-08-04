@@ -105,7 +105,7 @@ class FilesystemUtility
             mkdir($to, recursive: true);
             foreach (scandir($from) as $file) {
                 if ($file != '.' && $file != '..') {
-                    $this->copy($this->joinPaths($from, $file), $this->joinPaths($to, $file));
+                    $this->_copy($this->joinPaths($from, $file), $this->joinPaths($to, $file));
                 }
             }
         } else {
