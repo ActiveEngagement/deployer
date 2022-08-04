@@ -7,6 +7,11 @@ use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Illuminate\Console\Command;
 
+/**
+ * A command that gets pre-built artifacts.
+ * 
+ * A custom Artisan command that gets, extracts, and deploys the artifacts in a given bundle.
+ */
 class GetArtifacts extends Command
 {
     protected $signature = 'artifacts:get {bundle}';

@@ -19,6 +19,11 @@ class ServiceProvider extends BaseServiceProvider
             ]);
         }
 
+        $this->app->singleton(FilesystemUtility::class);
+        $this->app->singleton(ArtifactDeployer::class);
+        $this->app->singleton(BundleDeployer::class);
+        $this->app->singleton(BundleExtractor::class);
+
         $this->app->when(BundleExtractor::class)
             ->needs('$bundlesDir')
             ->giveConfig('deployer.bundles_dir');
