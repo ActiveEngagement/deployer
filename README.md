@@ -29,7 +29,7 @@ composer require actengage/deployer
 Publish the configuration:
 
 ```bash
-php artisan vendor:publish --tag=config
+php artisan vendor:publish --tag=deployer-config
 ```
 
 ## Artifacts
