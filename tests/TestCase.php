@@ -6,6 +6,8 @@ use Actengage\Deployer\ArtifactDeployer;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\FilesystemUtility;
+use Actengage\Deployer\IPathProvider;
+use Actengage\Deployer\PathProvider;
 use Actengage\Deployer\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionClass;
@@ -21,13 +23,6 @@ class TestCase extends BaseTestCase
         chdir($this->testsDir().'storage/app');
     }
 
-    protected function getPackageProviders($app)
-    {
-        return [
-            ServiceProvider::class
-        ];
-    }
-
     protected function testsDir(): string
     {
         $reflector = new ReflectionClass(self::class);
@@ -38,19 +33,29 @@ class TestCase extends BaseTestCase
 
     private function registerBindings(): void
     {
-        app()->when(BundleExtractor::class)
+        $this->app->singleton(FilesystemUtility::class);
+        $this->app->singleton(ArtifactDeployer::class);
+        $this->app->singleton(BundleDeployer::class);
+        $this->app->singleton(BundleExtractor::class);
+        $this->app->singleton(IPathProvider::class, PathProvider::class);
+
+        $this->app->when(PathProvider::class)
             ->needs('$bundlesDir')
             ->give($this->testsDir().'storage/bundles/deeply/nested');
 
-        app()->when(BundleExtractor::class)
+        $this->app->when(PathProvider::class)
             ->needs('$extractionDir')
             ->give($this->testsDir().'storage/path/to/extraction/dir');
 
-        app()->when(ArtifactDeployer::class)
+        $this->app->when(PathProvider::class)
             ->needs('$backupDir')
             ->give($this->testsDir().'storage/backups');
 
-        app()->when(BundleDeployer::class)
+        $this->app->when(PathProvider::class)
+            ->needs('$deploymentDir')
+            ->give($this->testsDir().'storage/app');
+
+        $this->app->when(BundleDeployer::class)
             ->needs('$artifactRules')
             ->give([
                 'artifact1' => 'public/build',
@@ -85,7 +90,7 @@ class TestCase extends BaseTestCase
      */
     private function setUpFilesystem(): void
     {
-        $filesystem = app()->get(FilesystemUtility::class);
+        $filesystem = $this->app->get(FilesystemUtility::class);
         $testsDir = $this->testsDir();
         $storageDir = $testsDir.'storage/';
 

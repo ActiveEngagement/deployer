@@ -14,17 +14,14 @@ class BundleExtractor
     /**
      * Creates a new instance.
      * 
-     * Creates a new instance of `BundleExtractor` with the given `FilesystemUtility`, bundles directory, and extraction
-     * directory.
+     * Creates a new instance of `BundleExtractor` with the given `FilesystemUtility` and path provider.
      * 
      * @param FilesystemUtility $filesystem a `FileSystemUtility` instance to use for various filesystem tasks.
-     * @param string $bundlesDir the path to the directory from which bundles should be extracted.
-     * @param string $extractionDir the path to the directory into which bundles should be extracted.
+     * @param IPathProvider $paths an `IPathProvider` instance used to retrieve file paths.
      */
     public function __construct(
         protected FilesystemUtility $filesystem,
-        protected string $bundlesDir,
-        protected string $extractionDir
+        protected IPathProvider $paths
     )
     {
     }
@@ -41,9 +38,9 @@ class BundleExtractor
     public function extract(string $bundleName): string
     {
         $fileName = $bundleName.'.tar.gz';
-        $bundlePath = $this->filesystem->joinPaths($this->bundlesDir, $fileName);
-        $copyPath = $this->filesystem->joinPaths($this->extractionDir, $fileName);
-        $extractedPath = $this->filesystem->joinPaths($this->extractionDir, $bundleName);
+        $bundlePath = $this->filesystem->joinPaths($this->paths->bundlesDir(), $fileName);
+        $copyPath = $this->filesystem->joinPaths($this->paths->extractionDir(), $fileName);
+        $extractedPath = $this->filesystem->joinPaths($this->paths->extractionDir(), $bundleName);
 
         if (file_exists($extractedPath)) {
             throw new DeployerException("The bundle $bundleName has already been extracted!");

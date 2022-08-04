@@ -12,17 +12,14 @@ class ArtifactDeployer
     /**
      * Creates a new instance.
      * 
-     * Creates a new instance of `ArtifactDeployer` with the given `FilesystemUtility` and backup directory path.
+     * Creates a new instance of `ArtifactDeployer` with the given `FilesystemUtility` and path provider.
      * 
      * @param FilesystemUtility $filesystem a `FileSystemUtility` instance to use for various filesystem tasks.
-     * @param string $backupDir the path to the directory into which to back up existing artifacts.
-     * @param string $deploymentDir the path to the directory into which to deploy; all artifact rule paths are relative
-     * to this path.
+     * @param IPathProvider $paths an `IPathProvider` instance used to retrieve file paths.
      */
     public function __construct(
         protected FilesystemUtility $filesystem,
-        protected string $backupDir,
-        protected string $deploymentDir
+        protected IPathProvider $paths
     )
     {
     }
@@ -37,10 +34,10 @@ class ArtifactDeployer
      */
     public function backup(string $path): void
     {
-        $fullPath = $this->filesystem->joinPaths($this->deploymentDir, $path);
+        $fullPath = $this->filesystem->joinPaths($this->paths->deploymentDir(), $path);
         if (!file_exists($fullPath)) return;
 
-        $newPath = $this->filesystem->joinPaths($this->backupDir, $path);
+        $newPath = $this->filesystem->joinPaths($this->paths->backupDir(), $path);
 
         # Keep up to one backup.
         if (file_exists($newPath)) {
@@ -61,7 +58,7 @@ class ArtifactDeployer
      */
     public function deploy(string $from, string $to): void
     {
-        $toPath = $this->filesystem->joinPaths($this->deploymentDir, $to);
+        $toPath = $this->filesystem->joinPaths($this->paths->deploymentDir(), $to);
 
         if (file_exists($to)) {
             $this->filesystem->delete($to);
