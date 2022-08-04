@@ -65,13 +65,13 @@ You may invoke this command whenever you deploy your application (e.g. from your
 php artisan artifacts:get 2022-08-04
 ```
 
-`deployer` will look in the bundles directory (`storage/artifact_bundles` by default) for a file named `2022-08-04.tar.gz`, extract it to the extraction directory, then proceed to deploy its artifacts.
+`deployer` will look in the bundles directory (`storage/deployer/artifact_bundles` by default) for a file named `2022-08-04.tar.gz`, extract it to the extraction directory, then proceed to deploy its artifacts.
 
 ## Backups
 
 Before overwriting an existing file or directory during an artifact deployment, `deployer` will first back it up to the backup directory in case the deployment fails. The file structure within the backup directory mirrors that of the deployment root (which is the current directory by default).
 
-For example, if the directory 'public/build/assets' is about to be overwriten, with the default configuration, `deployer` will move it to `storage/old_artifacts/public/build/assets` first.
+For example, if the directory 'public/build/assets' is about to be overwriten, with the default configuration, `deployer` will move it to `storage/deployer/old_artifacts/public/build/assets` first.
 
 Only the last version of an artifact before the deployment is preserved; previous backups are overwriten.
 
