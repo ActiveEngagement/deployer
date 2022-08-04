@@ -9,6 +9,9 @@ class ServiceProvider extends BaseServiceProvider
 {
     public function register()
     {
+        $this->publishes([
+            __DIR__.'/../config/deployer.php' => config_path('deployer.php'),
+        ]);
         $this->mergeConfigFrom(
             __DIR__.'/../config/deployer.php', 'deployer'
         );
