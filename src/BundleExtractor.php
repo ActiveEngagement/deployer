@@ -55,7 +55,6 @@ class BundleExtractor
 
         $logger->info("Extracting bundle from $bundlePath to $extractedPath");
         $logger->debug("Copying $bundlePath to $copyPath");
-        mkdir($extractedPath);
         copy($bundlePath, $copyPath);
 
         $logger->debug("Decompressing $copyPath");
@@ -63,6 +62,7 @@ class BundleExtractor
         $tarPhar = $phar->decompress();
 
         $logger->debug("Dearchiving to $extractedPath");
+        mkdir($extractedPath);
         $tarPhar->extractTo($extractedPath);
 
         return $extractedPath;
