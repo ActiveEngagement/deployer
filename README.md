@@ -32,6 +32,21 @@ Publish the configuration:
 php artisan vendor:publish --tag=deployer-config
 ```
 
+After configuring your directory structure (see below), you may wish to automatically create the `deployer` directories:
+
+```bash
+php artisan deployer:init
+```
+
+By default, this will create the following directories:
+
+```
+storage/deployer
+├── artifact_bundles
+├── extracted_bundles
+└── old_artifacts
+```
+
 ## Artifacts
 
 `deployer` can deploy one or more "artifacts" from a `.tar.gz` bundle on the filesystem. You may specify where you'd like to deploy each artifact in `config/deployer.php`:
