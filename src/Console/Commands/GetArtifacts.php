@@ -34,7 +34,7 @@ final class GetArtifacts extends Command
     private function createLogger(): LoggerInterface
     {
         $logLevel = match ((int) $this->option('verbosity')) {
-            0 => LogLevel::CRITICAL,
+            0 => LogLevel::ERROR,
             1 => LogLevel::NOTICE,
             2 => LogLevel::INFO,
             default => LogLevel::DEBUG,
