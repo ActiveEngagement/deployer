@@ -22,24 +22,24 @@ final class Init extends Command
         if (file_exists($backupDir)) {
             $this->warn("Backup directory exists: $backupDir");
         } else {
-            mkdir($backupDir);
-            $this->info("Created backup directory $backupDir");
+            $this->info("Creating backup directory $backupDir");
+            mkdir($backupDir, recursive: true);
         }
 
         $extractionDir = $paths->extractionDir();
         if (file_exists($extractionDir)) {
             $this->warn("Extraction directory exists: $extractionDir");
         } else {
-            mkdir($extractionDir);
-            $this->info("Created extraction directory $extractionDir");
+            $this->info("Creating extraction directory $extractionDir");
+            mkdir($extractionDir, recursive: true);
         }
 
         $bundlesDir = $paths->bundlesDir();
         if (file_exists($bundlesDir)) {
             $this->warn("Bundles directory exists: $bundlesDir");
         } else {
-            mkdir($bundlesDir);
-            $this->info("Created bundles directory $bundlesDir");
+            $this->info("Creating bundles directory $bundlesDir");
+            mkdir($bundlesDir, recursive: true);
         }
 
         return 0;
