@@ -5,8 +5,10 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\CommandLogger;
+use Actengage\Deployer\DeployerException;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 /**
  * A command that gets pre-built artifacts.
@@ -31,11 +33,11 @@ final class GetArtifacts extends Command
 
     private function createLogger(): LoggerInterface
     {
-        $logLevel = match ($this->option('verbosity')) {
-            0 => LOG_CRIT,
-            1 => LOG_NOTICE,
-            2 => LOG_INFO,
-            3 => LOG_DEBUG
+        $logLevel = match ((int) $this->option('verbosity')) {
+            0 => LogLevel::CRITICAL,
+            1 => LogLevel::NOTICE,
+            2 => LogLevel::INFO,
+            default => LogLevel::DEBUG,
         };
         return new CommandLogger($this, $logLevel);
     }
