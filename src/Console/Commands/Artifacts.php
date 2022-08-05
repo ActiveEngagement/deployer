@@ -5,7 +5,6 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\CommandLogger;
-use Actengage\Deployer\DeployerException;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -39,6 +38,7 @@ final class Artifacts extends Command
             2 => LogLevel::INFO,
             default => LogLevel::DEBUG,
         };
+
         return new CommandLogger($this, $logLevel);
     }
 }

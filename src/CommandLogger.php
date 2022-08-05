@@ -3,25 +3,25 @@
 namespace Actengage\Deployer;
 
 use Illuminate\Console\Command;
-use Psr\Log\AbstractLogger;
-use Stringable;
 use Illuminate\Support\Str;
+use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
+use Stringable;
 
 /**
  * Logs to an Artisan command.
- * 
+ *
  * An implementation of `LoggerInterface` that writes to Artisan `Command` output.
  */
 class CommandLogger extends AbstractLogger
 {
     /**
      * Creates a new instance.
-     * 
+     *
      * Creates a new instance of `CommandLogger` with the given Artisan `Command` and log level.
-     * 
-     * @param Command $cmd the Artisan command whose output should be written to.
-     * @param int $level the minimum log level on which to write.
+     *
+     * @param  Command  $cmd the Artisan command whose output should be written to.
+     * @param  int  $level the minimum log level on which to write.
      */
     public function __construct(protected Command $cmd, protected string $level)
     {
@@ -42,9 +42,9 @@ class CommandLogger extends AbstractLogger
 
         if ($priority <= 3) {
             $this->cmd->error($message);
-        } else if ($level === 4) {
+        } elseif ($level === 4) {
             $this->cmd->warn($message);
-        } else if ($level === 6) {
+        } elseif ($level === 6) {
             $this->cmd->info($message);
         } else {
             $this->cmd->line($message);

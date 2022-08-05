@@ -38,37 +38,37 @@ abstract class AbstractPathProvider implements PathProvider
 
     /**
      * Gets the unresolved bundles dir.
-     * 
+     *
      * Should get the raw, unresolved path to the bundles directory. It will be resolved from the deployment root.
-     * 
+     *
      * @return string
      */
-    protected abstract function unresolvedBundlesDir(): string;
+    abstract protected function unresolvedBundlesDir(): string;
 
     /**
      * Gets the unresolved extraction dir.
-     * 
+     *
      * Should get the raw, unresolved path to the extraction directory. It will be resolved from the deployment root.
-     * 
+     *
      * @return string
      */
-    protected abstract function unresolvedExtractionDir(): string;
+    abstract protected function unresolvedExtractionDir(): string;
 
     /**
      * Gets the unresolved backup dir.
-     * 
+     *
      * Should get the raw, unresolved path to the backup directory. It will be resolved from the deployment root.
-     * 
+     *
      * @return string
      */
-    protected abstract function unresolvedBackupDir(): string;
+    abstract protected function unresolvedBackupDir(): string;
 
     /**
      * Resolves the given path.
-     * 
+     *
      * Resolves the given path from the deployment root.
-     * 
-     * @param string $path the path to resolves.
+     *
+     * @param  string  $path the path to resolves.
      * @return string the resolved path.
      */
     protected function resolvePath(string $path): string

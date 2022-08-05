@@ -7,9 +7,9 @@ use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
-use Tests\Support\PathProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionClass;
+use Tests\Support\PathProvider;
 
 class TestCase extends BaseTestCase
 {

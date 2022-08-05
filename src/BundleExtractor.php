@@ -38,7 +38,7 @@ class BundleExtractor
      * simply returned.
      *
      * @param  string  $bundleName the name of the bundle to extract.
-     * @param LoggerInterface $logger an optional logger.
+     * @param  LoggerInterface  $logger an optional logger.
      * @return string the path to the extracted bundle.
      */
     public function extract(string $bundleName, LoggerInterface $logger = new NullLogger): string
@@ -50,6 +50,7 @@ class BundleExtractor
 
         if (file_exists($extractedPath)) {
             $logger->info("Using already-extracted bundle at $extractedPath");
+
             return $extractedPath;
         }
 

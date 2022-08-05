@@ -33,7 +33,7 @@ class ArtifactDeployer
      * If the given artifact exists, then this method will copy it to the backup directory.
      *
      * @param  string  $path the path (relative to the deployment root) to the artifact to back up.
-     * @param LoggerInterface $logger an optional logger.
+     * @param  LoggerInterface  $logger an optional logger.
      * @return void
      */
     public function backup(string $path, LoggerInterface $logger = new NullLogger): void
@@ -62,7 +62,7 @@ class ArtifactDeployer
      *
      * @param  string  $from the full path to the extracted artifact being deployed.
      * @param  string  $to the path (relative to the deployment root) to which the artifact should be moved.
-     * @param LoggerInterface $logger an optional logger.
+     * @param  LoggerInterface  $logger an optional logger.
      * @return void
      */
     public function deploy(string $from, string $to, LoggerInterface $logger = new NullLogger): void

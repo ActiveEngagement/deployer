@@ -39,7 +39,7 @@ class BundleDeployer
      * All existing artifacts will be backed up *before* the new ones are deployed.
      *
      * @param  string  $bundlePath the full path to the bundle being deployed.
-     * @param LoggerInterface $logger an optional logger.
+     * @param  LoggerInterface  $logger an optional logger.
      * @return void
      */
     public function deploy(string $bundlePath, LoggerInterface $logger = new NullLogger): void
@@ -48,6 +48,7 @@ class BundleDeployer
             $fromFullPath = $this->filesystem->joinPaths($bundlePath, $from);
             if (! file_exists($fromFullPath)) {
                 $logger->notice("Skipping backup for $fromFullPath since it doesn't exist in the bundle.");
+
                 continue;
             }
 
@@ -57,6 +58,7 @@ class BundleDeployer
             $fromFullPath = $this->filesystem->joinPaths($bundlePath, $from);
             if (! file_exists($fromFullPath)) {
                 $logger->notice("Skipping deployment for $fromFullPath since it doesn't exist in the bundle.");
+
                 continue;
             }
 
