@@ -58,7 +58,7 @@ class ArtifactDeploymentTest extends TestCase
 
         // Test the artifact deployment process.
 
-        $deployer = app()->make(BundleDeployer::class);
+        $deployer = app()->get(BundleDeployer::class);
         $deployer->deploy($bundlePath);
 
         // Assert artifact1
