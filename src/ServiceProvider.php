@@ -32,18 +32,6 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
 
         $this->app->when(PathProvider::class)
-            ->needs('$bundlesDir')
-            ->giveConfig('deployer.bundles_dir');
-
-        $this->app->when(PathProvider::class)
-            ->needs('$extractionDir')
-            ->giveConfig('deployer.extraction_dir');
-
-        $this->app->when(PathProvider::class)
-            ->needs('$backupDir')
-            ->giveConfig('deployer.backup_dir');
-
-        $this->app->when(PathProvider::class)
             ->needs('$deploymentDir')
             ->give(getcwd());
 
