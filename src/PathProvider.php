@@ -2,51 +2,25 @@
 
 namespace Actengage\Deployer;
 
-use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
-use Illuminate\Support\Str;
-
-/**
- * Provides necessary file paths.
- *
- * An implementation of `IPathProvider` that resolves relative file paths from the deployment root.
- */
-class PathProvider implements PathProviderInterface
+class PathProvider extends AbstractPathProvider
 {
-    public function __construct(
-        protected FilesystemUtility $filesystem,
-        protected string $bundlesDir,
-        protected string $extractionDir,
-        protected string $backupDir,
-        protected string $deploymentDir
-    ) {
+    public function __construct(FilesystemUtility $filesystem, string $deploymentDir)
+    {
+        parent::__construct($filesystem, $deploymentDir);
     }
 
-    public function bundlesDir(): string
+    protected function unresolvedBundlesDir(): string
     {
-        return $this->resolvePath($this->bundlesDir);
+        return config('deployer.bundles_dir');
     }
 
-    public function extractionDir(): string
+    protected function unresolvedExtractionDir(): string
     {
-        return $this->resolvePath($this->extractionDir);
+        return config('deployer.extraction_dir');
     }
 
-    public function backupDir(): string
+    protected function unresolvedBackupDir(): string
     {
-        return $this->resolvePath($this->backupDir);
-    }
-
-    public function deploymentDir(): string
-    {
-        return $this->deploymentDir;
-    }
-
-    protected function resolvePath(string $path)
-    {
-        if (Str::startsWith($path, '/')) {
-            return $path;
-        }
-
-        return $this->filesystem->joinPaths($this->deploymentDir, $path);
+        return config('deployer.backup_dir');
     }
 }

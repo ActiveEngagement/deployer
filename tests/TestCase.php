@@ -7,7 +7,7 @@ use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
-use Actengage\Deployer\PathProvider;
+use Tests\Support\PathProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionClass;
 
@@ -39,20 +39,8 @@ class TestCase extends BaseTestCase
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
 
         $this->app->when(PathProvider::class)
-            ->needs('$bundlesDir')
-            ->give($this->testsDir().'storage/bundles/deeply/nested');
-
-        $this->app->when(PathProvider::class)
-            ->needs('$extractionDir')
-            ->give($this->testsDir().'storage/path/to/extraction/dir');
-
-        $this->app->when(PathProvider::class)
-            ->needs('$backupDir')
-            ->give($this->testsDir().'storage/backups');
-
-        $this->app->when(PathProvider::class)
-            ->needs('$deploymentDir')
-            ->give($this->testsDir().'storage/app');
+            ->needs('$testsDir')
+            ->give($this->testsDir());
 
         $this->app->when(BundleDeployer::class)
             ->needs('$artifactRules')
