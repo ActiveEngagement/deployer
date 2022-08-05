@@ -35,7 +35,7 @@ php artisan vendor:publish --tag=deployer-config
 After configuring your directory structure (see below), you may wish to automatically create the `deployer` directories:
 
 ```bash
-php artisan deployer:init
+php artisan deployer:install
 ```
 
 By default, this will create the following directories:

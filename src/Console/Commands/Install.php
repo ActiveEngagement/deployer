@@ -10,9 +10,9 @@ use Illuminate\Console\Command;
  *
  * A custom Artisan command that creates the directories required for `deployer` to function.
  */
-final class Init extends Command
+final class Install extends Command
 {
-    protected $signature = 'deployer:init';
+    protected $signature = 'deployer:install';
 
     protected $description = 'Initializes the directories necessay for deployer to run.';
 
