@@ -11,9 +11,9 @@ use Illuminate\Console\Command;
  *
  * A custom Artisan command that gets, extracts, and deploys the artifacts in a given bundle.
  */
-class GetArtifacts extends Command
+class Artifacts extends Command
 {
-    protected $signature = 'artifacts:get {bundle}';
+    protected $signature = 'deployer:artifacts {bundle}';
 
     protected $description = 'Safely extracts and deploys artifacts from the given bundle.';
 

@@ -2,7 +2,7 @@
 
 namespace Actengage\Deployer;
 
-use Actengage\Deployer\Console\Commands\GetArtifacts;
+use Actengage\Deployer\Console\Commands\Artifacts;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Psr\Log\LoggerInterface;
@@ -20,7 +20,7 @@ class ServiceProvider extends BaseServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                GetArtifacts::class,
+                Artifacts::class,
             ]);
         }
 
