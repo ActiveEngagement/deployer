@@ -4,6 +4,8 @@ namespace Actengage\Deployer;
 
 use Actengage\Deployer\Contracts\PathProvider;
 use PharData;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Extracts a bundle.
@@ -36,9 +38,10 @@ class BundleExtractor
      * simply returned.
      *
      * @param  string  $bundleName the name of the bundle to extract.
+     * @param LoggerInterface $logger an optional logger.
      * @return string the path to the extracted bundle.
      */
-    public function extract(string $bundleName): string
+    public function extract(string $bundleName, LoggerInterface $logger = new NullLogger): string
     {
         $fileName = $bundleName.'.tar.gz';
         $bundlePath = $this->filesystem->joinPaths($this->paths->bundlesDir(), $fileName);
@@ -46,14 +49,20 @@ class BundleExtractor
         $extractedPath = $this->filesystem->joinPaths($this->paths->extractionDir(), $bundleName);
 
         if (file_exists($extractedPath)) {
+            $logger->info("Using already-extracted bundle at $extractedPath");
             return $extractedPath;
         }
 
+        $logger->info("Extracting bundle from $bundlePath to $extractedPath");
+        $logger->debug("Copying $bundlePath to $copyPath");
         mkdir($extractedPath);
         copy($bundlePath, $copyPath);
 
+        $logger->debug("Decompressing $copyPath");
         $phar = new PharData($copyPath);
         $tarPhar = $phar->decompress();
+
+        $logger->debug("Dearchiving to $extractedPath");
         $tarPhar->extractTo($extractedPath);
 
         return $extractedPath;

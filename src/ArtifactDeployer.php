@@ -3,6 +3,8 @@
 namespace Actengage\Deployer;
 
 use Actengage\Deployer\Contracts\PathProvider;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Deploys an artifact.
@@ -31,9 +33,10 @@ class ArtifactDeployer
      * If the given artifact exists, then this method will copy it to the backup directory.
      *
      * @param  string  $path the path (relative to the deployment root) to the artifact to back up.
+     * @param LoggerInterface $logger an optional logger.
      * @return void
      */
-    public function backup(string $path): void
+    public function backup(string $path, LoggerInterface $logger = new NullLogger): void
     {
         $fullPath = $this->filesystem->joinPaths($this->paths->deploymentDir(), $path);
         if (! file_exists($fullPath)) {
@@ -44,9 +47,11 @@ class ArtifactDeployer
 
         // Keep up to one backup.
         if (file_exists($newPath)) {
+            $logger->debug("Deleting previous backup at $newPath");
             $this->filesystem->delete($newPath);
         }
 
+        $logger->info("Backing up $fullPath to $newPath");
         $this->filesystem->copy($fullPath, $newPath);
     }
 
@@ -57,16 +62,19 @@ class ArtifactDeployer
      *
      * @param  string  $from the full path to the extracted artifact being deployed.
      * @param  string  $to the path (relative to the deployment root) to which the artifact should be moved.
+     * @param LoggerInterface $logger an optional logger.
      * @return void
      */
-    public function deploy(string $from, string $to): void
+    public function deploy(string $from, string $to, LoggerInterface $logger = new NullLogger): void
     {
         $toPath = $this->filesystem->joinPaths($this->paths->deploymentDir(), $to);
 
         if (file_exists($to)) {
+            $logger->debug("Deleting existing artifact at $to");
             $this->filesystem->delete($to);
         }
 
+        $logger->info("Deploying artifact from $from to $toPath");
         $this->filesystem->copy($from, $toPath);
     }
 }
