@@ -67,13 +67,13 @@ return [
 Currently, `deployer` consists of one Artisan command:
 
 ```bash
-php artisan artifacts:get {bundle}
+php artisan deployer:artifacts {bundle}
 ```
 
 You may invoke this command whenever you deploy your application (e.g. from your deploy script when using [Laravel Forge](https://forge.laravel.com)), giving it the name of a pre-built bundle. For example:
 
 ```
-php artisan artifacts:get 2022-08-04
+php artisan deployer:artifacts 2022-08-04
 ```
 
 `deployer` will look in the bundles directory (`storage/deployer/artifact_bundles` by default) for a file named `2022-08-04.tar.gz`, extract it to the extraction directory, then proceed to deploy its artifacts.

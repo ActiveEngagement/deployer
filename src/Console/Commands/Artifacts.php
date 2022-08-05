@@ -15,9 +15,9 @@ use Psr\Log\LogLevel;
  *
  * A custom Artisan command that gets, extracts, and deploys the artifacts in a given bundle.
  */
-final class GetArtifacts extends Command
+final class Artifacts extends Command
 {
-    protected $signature = 'artifacts:get {bundle} {--verbosity=1}';
+    protected $signature = 'deployer:artifacts {bundle} {--verbosity=1}';
 
     protected $description = 'Safely extracts and deploys artifacts from the given bundle.';
 
