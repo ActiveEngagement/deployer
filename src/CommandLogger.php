@@ -55,7 +55,7 @@ class CommandLogger extends AbstractLogger
     {
         $levelString = Str::upper($level);
 
-        return "deployer [$levelString] $message";
+        return "[$levelString] $message";
     }
 
     protected function getLevelPriority(string $level): int
