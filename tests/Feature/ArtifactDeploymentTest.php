@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Actengage\Deployer\BundleDeployer;
-use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\FilesystemUtility;
 use Tests\TestCase;
 
@@ -16,7 +15,7 @@ class ArtifactDeploymentTest extends TestCase
 
         // FIRST DEPLOYMENT
 
-        $deployer->deploy($this->testsDir().'storage/bundles/deeply/nested/an_example_bundle');
+        $deployer->deploy('an_example_bundle');
 
         // Assert artifact1
         $this->assertDirectoryExists($this->testsDir().'storage/app/public/build');
@@ -40,7 +39,7 @@ class ArtifactDeploymentTest extends TestCase
         // Test the artifact deployment process.
 
         $deployer = app()->get(BundleDeployer::class);
-        $deployer->deploy($this->testsDir().'storage/bundles/deeply/nested/bundle_two');
+        $deployer->deploy('bundle_two');
 
         // Assert artifact1
         $this->assertDirectoryExists($this->testsDir().'storage/app/public/build');

@@ -21,12 +21,10 @@ final class Artifacts extends Command
 
     protected $description = 'Safely deploys artifacts from the given bundle.';
 
-    public function handle(FilesystemUtility $filesystem, BundleDeployer $deployer): int
+    public function handle(BundleDeployer $deployer): int
     {
         $logger = $this->createLogger();
-
-        $bundlePath = $filesystem->joinPaths($this->paths->bundlesDir(), $this->argument('bundle'));
-        $deployer->deploy($bundlePath, $logger);
+        $deployer->deploy($this->argument('bundle'), $logger);
 
         return 0;
     }

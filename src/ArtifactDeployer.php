@@ -19,7 +19,7 @@ class ArtifactDeployer
      * Creates a new instance of `ArtifactDeployer` with the given `FilesystemUtility` and path provider.
      *
      * @param  FilesystemUtility  $filesystem a `FileSystemUtility` instance to use for various filesystem tasks.
-     * @param  IPathProvider  $paths an `IPathProvider` instance used to retrieve file paths.
+     * @param  PathProvider  $paths a `PathProvider` instance used to retrieve file paths.
      */
     public function __construct(
         protected FilesystemUtility $filesystem,
