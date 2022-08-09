@@ -1,6 +1,6 @@
 # Deployer
 
-This simple package provides an easy way to get, extract, and deploy pre-built artifacts (maybe artifacted with our GitHub action—coming soon!) to your application.
+This simple package provides an easy way to get and deploy pre-built artifacts (maybe artifacted with [our GitHub action](https://github.com/ActiveEngagement/deployer-action)) to your application.
 
 ## Requirements
 
@@ -43,13 +43,12 @@ By default, this will create the following directories:
 ```
 storage/deployer
 ├── artifact_bundles
-├── extracted_bundles
 └── old_artifacts
 ```
 
 ## Artifacts
 
-`deployer` can deploy one or more "artifacts" from a `.tar.gz` bundle on the filesystem. You may specify where you'd like to deploy each artifact in `config/deployer.php`:
+`deployer` can deploy one or more "artifacts" from an "artifact bundle" directory on the filesystem. You may specify where you'd like to deploy each artifact in `config/deployer.php`:
 
 ```php
 <?php
@@ -91,7 +90,7 @@ You may invoke this command whenever you deploy your application (e.g. from your
 php artisan deployer:artifacts 2022-08-04
 ```
 
-`deployer` will look in the bundles directory (`storage/deployer/artifact_bundles` by default) for a file named `2022-08-04.tar.gz`, extract it to the extraction directory, then proceed to deploy its artifacts.
+`deployer` will look in the bundles directory (`storage/deployer/artifact_bundles` by default) for a directory named `2022-08-04` and will deploy its artifacts.
 
 ## Backups
 
@@ -119,19 +118,6 @@ return [
     */
 
     'bundles_dir' => env('DEPLOYER_BUNDLES_DIR', 'storage/artifact_bundles'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Extraction Directory
-    |--------------------------------------------------------------------------
-    |
-    | This value is the path (absolute or relative to the deployment root) to a
-    | directory into which the bundles may be extracted. The extraction files
-    | are temporary and may be purged from the directory when the deployment is
-    | complete.
-    */
-
-    'extraction_dir' => env('DEPLOYER_EXTRACTION_DIR', 'storage/extracted_bundles'),
 
     /*
     |--------------------------------------------------------------------------
