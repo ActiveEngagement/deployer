@@ -11,8 +11,6 @@ interface PathProvider
 {
     public function bundlesDir(): string;
 
-    public function extractionDir(): string;
-
     public function backupDir(): string;
 
     public function deploymentDir(): string;

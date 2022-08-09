@@ -4,7 +4,6 @@ namespace Tests;
 
 use Actengage\Deployer\ArtifactDeployer;
 use Actengage\Deployer\BundleDeployer;
-use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -35,7 +34,6 @@ class TestCase extends BaseTestCase
         $this->app->singleton(FilesystemUtility::class);
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
-        $this->app->singleton(BundleExtractor::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
 
         $this->app->when(PathProvider::class)
@@ -57,11 +55,7 @@ class TestCase extends BaseTestCase
      *   bundles
      *     deeply
      *       nested
-     *         an_example_bundle.tar.gz
-     *   path
-     *     to
-     *       extraction
-     *         dir
+     *         an_example_bundle
      *   backups
      *   app
      *     public
@@ -88,9 +82,6 @@ class TestCase extends BaseTestCase
         $bundlesDir = $storageDir.'bundles/deeply/nested/';
         mkdir($bundlesDir, recursive: true);
 
-        $extractionDir = $storageDir.'path/to/extraction/dir/';
-        mkdir($extractionDir, recursive: true);
-
         $backupsDir = $storageDir.'backups/';
         mkdir($backupsDir, recursive: true);
 
@@ -106,8 +97,8 @@ class TestCase extends BaseTestCase
         mkdir($unrelatedDir, recursive: true);
         mkdir($unrelatedPublicDir, recursive: true);
 
-        copy($testsDir.'bundles/an_example_bundle.tar.gz', $bundlesDir.'an_example_bundle.tar.gz');
-        copy($testsDir.'bundles/bundle_two.tar.gz', $bundlesDir.'bundle_two.tar.gz');
+        $filesystem->copy($testsDir.'bundles/an_example_bundle', $bundlesDir.'an_example_bundle');
+        $filesystem->copy($testsDir.'bundles/bundle_two', $bundlesDir.'bundle_two');
         file_put_contents($appDir.'random.txt', 'Some random data.');
     }
 }

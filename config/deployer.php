@@ -14,19 +14,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Extraction Directory
-    |--------------------------------------------------------------------------
-    |
-    | This value is the path (absolute or relative to the deployment root) to a
-    | directory into which the bundles may be extracted. The extraction files
-    | are temporary and may be purged from the directory when the deployment is
-    | complete.
-    */
-
-    'extraction_dir' => env('DEPLOYER_EXTRACTION_DIR', 'storage/deployer/extracted_bundles'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Backup Directory
     |--------------------------------------------------------------------------
     |

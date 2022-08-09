@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Actengage\Deployer\BundleDeployer;
-use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\FilesystemUtility;
 use Tests\TestCase;
 
@@ -12,22 +11,11 @@ class ArtifactDeploymentTest extends TestCase
     public function test()
     {
         $filesystem = app()->make(FilesystemUtility::class);
-        $extractor = app()->make(BundleExtractor::class);
         $deployer = app()->make(BundleDeployer::class);
 
         // FIRST DEPLOYMENT
 
-        // Test the extraction process.
-
-        $bundlePath = $extractor->extract('an_example_bundle');
-
-        $this->assertFileExists($this->testsDir().'storage/bundles/deeply/nested/an_example_bundle.tar.gz');
-        $this->assertFileExists($this->testsDir().'storage/path/to/extraction/dir/an_example_bundle.tar');
-        $this->assertDirectoryExists($this->testsDir().'storage/path/to/extraction/dir/an_example_bundle');
-
-        // Test the artifact deployment process.
-
-        $deployer->deploy($bundlePath);
+        $deployer->deploy('an_example_bundle');
 
         // Assert artifact1
         $this->assertDirectoryExists($this->testsDir().'storage/app/public/build');
@@ -48,18 +36,10 @@ class ArtifactDeploymentTest extends TestCase
 
         // SECOND DEPLOYMENT
 
-        // Test the extraction process.
-
-        $bundlePath = $extractor->extract('bundle_two');
-
-        $this->assertFileExists($this->testsDir().'storage/bundles/deeply/nested/bundle_two.tar.gz');
-        $this->assertFileExists($this->testsDir().'storage/path/to/extraction/dir/bundle_two.tar');
-        $this->assertDirectoryExists($this->testsDir().'storage/path/to/extraction/dir/bundle_two');
-
         // Test the artifact deployment process.
 
         $deployer = app()->get(BundleDeployer::class);
-        $deployer->deploy($bundlePath);
+        $deployer->deploy('bundle_two');
 
         // Assert artifact1
         $this->assertDirectoryExists($this->testsDir().'storage/app/public/build');

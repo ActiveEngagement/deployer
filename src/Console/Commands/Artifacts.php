@@ -5,6 +5,7 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\CommandLogger;
+use Actengage\Deployer\FilesystemUtility;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -18,14 +19,12 @@ final class Artifacts extends Command
 {
     protected $signature = 'deployer:artifacts {bundle} {--verbosity=1}';
 
-    protected $description = 'Safely extracts and deploys artifacts from the given bundle.';
+    protected $description = 'Safely deploys artifacts from the given bundle.';
 
-    public function handle(BundleExtractor $extractor, BundleDeployer $deployer): int
+    public function handle(BundleDeployer $deployer): int
     {
         $logger = $this->createLogger();
-
-        $extractedPath = $extractor->extract($this->argument('bundle'), $logger);
-        $deployer->deploy($extractedPath, $logger);
+        $deployer->deploy($this->argument('bundle'), $logger);
 
         return 0;
     }

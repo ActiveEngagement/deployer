@@ -2,29 +2,32 @@
 
 namespace Actengage\Deployer;
 
+use Actengage\Deployer\Contracts\PathProvider;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 /**
  * Deploys a bundle.
  *
- * A class that is capable of deploying all the artifacts in a given extracted bundle.
+ * A class that is capable of deploying all the artifacts in a given bundle.
  */
 class BundleDeployer
 {
     /**
      * Creates a new instance.
      *
-     * Creates a new instance of `BundleDeployer` with the given `FilesystemUtility`, `ArtifactDeployer`, and array of
-     * artifact rules.
+     * Creates a new instance of `BundleDeployer` with the given `FilesystemUtility`, `PathProvider`,
+     * `ArtifactDeployer`, and array of artifact rules.
      *
      * @param  FilesystemUtility  $filesystem a `FileSystemUtility` instance to use for various filesystem tasks.
+     * @param  PathProvider  $paths a `PathProvider` instance used to retrieve file paths.
      * @param  ArtifactDeployer  $artifactDeployer an `ArtifactDeployer` instance to use to deploy individual artifacts.
      * @param  array<string,string>  $artifactRules an associative array of artifact "rules:" that is, artifact source and
      * destination paths.
      */
     public function __construct(
         protected FilesystemUtility $filesystem,
+        protected PathProvider $paths,
         protected ArtifactDeployer $artifactDeployer,
         protected array $artifactRules
     ) {
@@ -34,18 +37,19 @@ class BundleDeployer
     /**
      * Deploys a bundle.
      *
-     * Deploys the artifact bundle at the given absolute path.
+     * Deploys the artifact bundle with the given name.
      *
      * All existing artifacts will be backed up *before* the new ones are deployed.
      *
-     * @param  string  $bundlePath the full path to the bundle being deployed.
+     * @param  string  $bundleName the name of the bundle (which will be retrieved from the bundles directory) to
+     * deploy.
      * @param  LoggerInterface  $logger an optional logger.
      * @return void
      */
-    public function deploy(string $bundlePath, LoggerInterface $logger = new NullLogger): void
+    public function deploy(string $bundleName, LoggerInterface $logger = new NullLogger): void
     {
         foreach ($this->artifactRules as $from => $to) {
-            $fromFullPath = $this->filesystem->joinPaths($bundlePath, $from);
+            $fromFullPath = $this->filesystem->joinPaths($this->paths->bundlesDir(), $bundleName, $from);
             if (! file_exists($fromFullPath)) {
                 $logger->notice("Skipping backup for $fromFullPath since it doesn't exist in the bundle.");
 
@@ -55,7 +59,7 @@ class BundleDeployer
             $this->artifactDeployer->backup($to, $logger);
         }
         foreach ($this->artifactRules as $from => $to) {
-            $fromFullPath = $this->filesystem->joinPaths($bundlePath, $from);
+            $fromFullPath = $this->filesystem->joinPaths($this->paths->bundlesDir(), $bundleName, $from);
             if (! file_exists($fromFullPath)) {
                 $logger->notice("Skipping deployment for $fromFullPath since it doesn't exist in the bundle.");
 
