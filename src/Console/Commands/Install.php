@@ -26,14 +26,6 @@ final class Install extends Command
             mkdir($backupDir, recursive: true);
         }
 
-        $extractionDir = $paths->extractionDir();
-        if (file_exists($extractionDir)) {
-            $this->warn("Extraction directory exists: $extractionDir");
-        } else {
-            $this->info("Creating extraction directory $extractionDir");
-            mkdir($extractionDir, recursive: true);
-        }
-
         $bundlesDir = $paths->bundlesDir();
         if (file_exists($bundlesDir)) {
             $this->warn("Bundles directory exists: $bundlesDir");
