@@ -35,7 +35,6 @@ class TestCase extends BaseTestCase
         $this->app->singleton(FilesystemUtility::class);
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
-        $this->app->singleton(BundleExtractor::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
 
         $this->app->when(PathProvider::class)
