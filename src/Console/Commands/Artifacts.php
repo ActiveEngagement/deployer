@@ -3,9 +3,7 @@
 namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\BundleDeployer;
-use Actengage\Deployer\BundleExtractor;
 use Actengage\Deployer\CommandLogger;
-use Actengage\Deployer\FilesystemUtility;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
