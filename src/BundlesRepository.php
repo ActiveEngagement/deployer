@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace Actengage\Deployer;
 
 use Actengage\Deployer\Contracts\PathProvider;
 use Actengage\Deployer\FilesystemUtility;
-use App\Contracts\BundlesRepository as BundlesRepositoryInterface;
+use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
 use Illuminate\Support\LazyCollection;
 
 class BundlesRepository implements BundlesRepositoryInterface

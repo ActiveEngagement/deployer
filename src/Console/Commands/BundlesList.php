@@ -2,8 +2,8 @@
 
 namespace Actengage\Deployer\Console\Commands;
 
-use App\Bundle;
-use App\Contracts\BundlesRepository;
+use Actengage\Deployer\Bundle;
+use Actengage\Deployer\Contracts\BundlesRepository;
 use Illuminate\Console\Command;
 
 final class BundlesList extends Command

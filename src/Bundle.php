@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Actengage\Deployer;
 
 use Carbon\Carbon;
 

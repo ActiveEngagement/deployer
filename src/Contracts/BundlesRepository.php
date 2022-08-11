@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contracts;
+namespace Actengage\Deployer\Contracts;
 
 use Illuminate\Support\LazyCollection;
 
