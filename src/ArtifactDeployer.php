@@ -8,7 +8,7 @@ use Actengage\Deployer\Contracts\PathProvider;
 /**
  * Deploys an artifact.
  *
- * A class that is capable of deploying an artifact to a given path, optionally backing up any existing artifact first.
+ * A class that is capable of deploying an artifact to a given path.
  */
 class ArtifactDeployer
 {
