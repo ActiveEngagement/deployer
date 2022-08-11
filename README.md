@@ -95,7 +95,7 @@ return [
     | the directory where the original, compressed .tar.gz bundles are stored.
     */
 
-    'bundles_dir' => env('DEPLOYER_BUNDLES_DIR', 'storage/artifact_bundles'),
+    'bundles_dir' => env('DEPLOYER_BUNDLES_DIR', 'storage/deployer/artifact_bundles'),
 ];
 ```
 
