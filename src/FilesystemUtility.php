@@ -43,6 +43,24 @@ class FilesystemUtility
     }
 
     /**
+     * Iterates over each directory child.
+     * 
+     * Iterates over every file and directory in the given directory, passing the full file path of each child to the
+     * callback.
+     * 
+     * @param string $path the path to the directory whose children should be iterated over.
+     * @param callable $callback the callback to invoke for each child.
+     * @return void
+     */
+    public function eachChild(string $path, callable $callback): void
+    {
+        $bundlePaths = glob($this->joinPaths($path, '*'));
+        foreach ($bundlePaths as $bundlePath) {
+            $callback($bundlePath);
+        }
+    }
+
+    /**
      * Deletes a file/directory.
      *
      * Recursively deletes the file or directory at the given path.
@@ -55,10 +73,9 @@ class FilesystemUtility
     public function delete(string $path): void
     {
         if (is_dir($path)) {
-            $files = glob($this->joinPaths($path, '*'), GLOB_MARK);
-            foreach ($files as $file) {
-                $this->delete($file);
-            }
+            $this->eachChild($path, function ($filePath) {
+                $this->delete($filePath);
+            });
             rmdir($path);
         } else {
             unlink($path);

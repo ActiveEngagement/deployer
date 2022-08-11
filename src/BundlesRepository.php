@@ -41,9 +41,7 @@ class BundlesRepository implements BundlesRepositoryInterface
     {
         $bundles = collect();
 
-        $bundlePaths = glob($this->filesystem->joinPaths($this->paths->bundlesDir(), '*'));
-
-        foreach ($bundlePaths as $bundlePath) {
+        $this->filesystem->eachChild($this->paths->bundlesDir(), function ($bundlePath) use ($bundles) {
             $bundle = $this->getBundle($bundlePath);
 
             if ($bundle) {
@@ -51,7 +49,7 @@ class BundlesRepository implements BundlesRepositoryInterface
             } else {
                 $this->logger->get()->info("Skipping $bundlePath because its manifest file was missing or malformed.");
             }
-        }
+        });
 
         if (! is_null($limit)) {
             $bundles = $bundles->take($limit);
