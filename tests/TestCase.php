@@ -9,6 +9,8 @@ use Actengage\Deployer\FilesystemUtility;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionClass;
 use Tests\Support\PathProvider;
+use Actengage\Deployer\LoggerRepository;
+use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 
 class TestCase extends BaseTestCase
 {
@@ -35,6 +37,7 @@ class TestCase extends BaseTestCase
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
+        $this->app->singleton(LoggerRepositoryInterface::class, LoggerRepository::class);
 
         $this->app->when(PathProvider::class)
             ->needs('$testsDir')

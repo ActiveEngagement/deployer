@@ -5,6 +5,8 @@ namespace Actengage\Deployer;
 use Actengage\Deployer\Console\Commands\Artifacts;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Actengage\Deployer\LoggerRepository;
+use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -27,6 +29,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
+        $this->app->singleton(LoggerRepositoryInterface::class, LoggerRepository::class);
 
         $this->app->when(PathProvider::class)
             ->needs('$deploymentDir')
