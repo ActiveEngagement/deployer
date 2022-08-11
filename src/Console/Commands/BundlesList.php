@@ -36,10 +36,10 @@ final class BundlesList extends Command
         $n = 1;
         $all->each(function (Bundle $bundle) use (&$n, &$rows) {
             $rows[] = [
-                $n,
-                $bundle->bundled_at->format('Y-m-d H:i'),
-                $bundle->version,
-                $bundle->shortCommit()
+                $n, // #
+                $bundle->bundled_at->format('Y-m-d H:i'), // Bundled At
+                $bundle->version, // Version
+                $bundle->shortCommit() // Commit
             ];
             $n++;
         });
