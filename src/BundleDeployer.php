@@ -2,9 +2,8 @@
 
 namespace Actengage\Deployer;
 
+use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\Contracts\PathProvider;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * Deploys a bundle.
@@ -20,6 +19,7 @@ class BundleDeployer
      * `ArtifactDeployer`, and array of artifact rules.
      *
      * @param  FilesystemUtility  $filesystem a `FileSystemUtility` instance to use for various filesystem tasks.
+     * @param  LoggerRepository  $logger a `LoggerRepository` that provides an optional logger for logging.
      * @param  PathProvider  $paths a `PathProvider` instance used to retrieve file paths.
      * @param  ArtifactDeployer  $artifactDeployer an `ArtifactDeployer` instance to use to deploy individual artifacts.
      * @param  array<string,string>  $artifactRules an associative array of artifact "rules:" that is, artifact source and
@@ -28,6 +28,7 @@ class BundleDeployer
     public function __construct(
         protected FilesystemUtility $filesystem,
         protected PathProvider $paths,
+        protected LoggerRepository $logger,
         protected ArtifactDeployer $artifactDeployer,
         protected array $artifactRules
     ) {
@@ -41,20 +42,19 @@ class BundleDeployer
      *
      * @param  string  $bundleName the name of the bundle (which will be retrieved from the bundles directory) to
      * deploy.
-     * @param  LoggerInterface  $logger an optional logger.
      * @return void
      */
-    public function deploy(string $bundleName, LoggerInterface $logger = new NullLogger): void
+    public function deploy(string $bundleName): void
     {
         foreach ($this->artifactRules as $from => $to) {
             $fromFullPath = $this->filesystem->joinPaths($this->paths->bundlesDir(), $bundleName, $from);
             if (! file_exists($fromFullPath)) {
-                $logger->notice("Skipping deployment for $fromFullPath since it doesn't exist in the bundle.");
+                $this->logger->get()->notice("Skipping deployment for $fromFullPath since it doesn't exist in the bundle.");
 
                 continue;
             }
 
-            $this->artifactDeployer->deploy($fromFullPath, $to, $logger);
+            $this->artifactDeployer->deploy($fromFullPath, $to);
         }
     }
 
