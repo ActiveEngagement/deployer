@@ -6,7 +6,7 @@ use App\Bundle;
 use App\Contracts\BundlesRepository;
 use Illuminate\Console\Command;
 
-final class Artifacts extends Command
+final class List extends Command
 {
     protected $signature = 'deployer:list {--limit=10}';
 
