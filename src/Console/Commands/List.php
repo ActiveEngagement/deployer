@@ -6,7 +6,7 @@ use App\Bundle;
 use App\Contracts\BundlesRepository;
 use Illuminate\Console\Command;
 
-final class List extends Command
+final class BundlesList extends Command
 {
     protected $signature = 'deployer:list {--limit=10}';
 

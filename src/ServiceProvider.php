@@ -3,7 +3,7 @@
 namespace Actengage\Deployer;
 
 use Actengage\Deployer\Console\Commands\Artifacts;
-use Actengage\Deployer\Console\Commands\List;
+use Actengage\Deployer\Console\Commands\BundlesList;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
@@ -21,7 +21,7 @@ class ServiceProvider extends BaseServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Artifacts::class,
-                List::class
+                BundlesList::class
             ]);
         }
 
