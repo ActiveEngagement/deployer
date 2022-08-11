@@ -3,12 +3,9 @@
 namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\Bundle;
-use Actengage\Deployer\CommandLogger;
 use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
-use Illuminate\Console\Command;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
+use Actengage\Deployer\Console\Commands\Command;
 
 /**
  * A command that lists bundles
@@ -50,17 +47,5 @@ final class BundlesList extends Command
         $this->table($headers, $rows);
 
         return 0;
-    }
-
-    private function createLogger(): LoggerInterface
-    {
-        $logLevel = match ((int) $this->option('verbosity')) {
-            0 => LogLevel::ERROR,
-            1 => LogLevel::NOTICE,
-            2 => LogLevel::INFO,
-            default => LogLevel::DEBUG,
-        };
-
-        return new CommandLogger($this, $logLevel);
     }
 }
