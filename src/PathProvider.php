@@ -8,9 +8,4 @@ class PathProvider extends AbstractPathProvider
     {
         return config('deployer.bundles_dir');
     }
-
-    protected function unresolvedBackupDir(): string
-    {
-        return config('deployer.backup_dir');
-    }
 }

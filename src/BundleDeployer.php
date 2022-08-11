@@ -39,8 +39,6 @@ class BundleDeployer
      *
      * Deploys the artifact bundle with the given name.
      *
-     * All existing artifacts will be backed up *before* the new ones are deployed.
-     *
      * @param  string  $bundleName the name of the bundle (which will be retrieved from the bundles directory) to
      * deploy.
      * @param  LoggerInterface  $logger an optional logger.
@@ -48,16 +46,6 @@ class BundleDeployer
      */
     public function deploy(string $bundleName, LoggerInterface $logger = new NullLogger): void
     {
-        foreach ($this->artifactRules as $from => $to) {
-            $fromFullPath = $this->filesystem->joinPaths($this->paths->bundlesDir(), $bundleName, $from);
-            if (! file_exists($fromFullPath)) {
-                $logger->notice("Skipping backup for $fromFullPath since it doesn't exist in the bundle.");
-
-                continue;
-            }
-
-            $this->artifactDeployer->backup($to, $logger);
-        }
         foreach ($this->artifactRules as $from => $to) {
             $fromFullPath = $this->filesystem->joinPaths($this->paths->bundlesDir(), $bundleName, $from);
             if (! file_exists($fromFullPath)) {

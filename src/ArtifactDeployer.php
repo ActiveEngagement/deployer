@@ -28,34 +28,6 @@ class ArtifactDeployer
     }
 
     /**
-     * Backs up the given artifact.
-     *
-     * If the given artifact exists, then this method will copy it to the backup directory.
-     *
-     * @param  string  $path the path (relative to the deployment root) to the artifact to back up.
-     * @param  LoggerInterface  $logger an optional logger.
-     * @return void
-     */
-    public function backup(string $path, LoggerInterface $logger = new NullLogger): void
-    {
-        $fullPath = $this->filesystem->joinPaths($this->paths->deploymentDir(), $path);
-        if (! file_exists($fullPath)) {
-            return;
-        }
-
-        $newPath = $this->filesystem->joinPaths($this->paths->backupDir(), $path);
-
-        // Keep up to one backup.
-        if (file_exists($newPath)) {
-            $logger->debug("Deleting previous backup at $newPath");
-            $this->filesystem->delete($newPath);
-        }
-
-        $logger->info("Backing up $fullPath to $newPath");
-        $this->filesystem->copy($fullPath, $newPath);
-    }
-
-    /**
      * Deploys the given artifact.
      *
      * Moves the artifact at the given path to a new path, overwriting any existing artifact.

@@ -56,7 +56,6 @@ class TestCase extends BaseTestCase
      *     deeply
      *       nested
      *         an_example_bundle
-     *   backups
      *   app
      *     public
      *       build
@@ -81,9 +80,6 @@ class TestCase extends BaseTestCase
 
         $bundlesDir = $storageDir.'bundles/deeply/nested/';
         mkdir($bundlesDir, recursive: true);
-
-        $backupsDir = $storageDir.'backups/';
-        mkdir($backupsDir, recursive: true);
 
         $appDir = $storageDir.'app/';
         $publicDir = $appDir.'public/';
