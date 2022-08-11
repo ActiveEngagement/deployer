@@ -6,7 +6,6 @@ use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\Contracts\PathProvider;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 /**
  * Accesses bundles.
