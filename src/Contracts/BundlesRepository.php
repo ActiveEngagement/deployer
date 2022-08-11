@@ -19,6 +19,8 @@ interface BundlesRepository
      * 
      * Should get a collection containing all the `Bundle` instances in this bundle repository.
      * 
+     * The bundles should be sorted by timestamp in descending order.
+     * 
      * @param int $limit if given, specifies the maximum number of bundles to return.
      * @return Collection
      */
