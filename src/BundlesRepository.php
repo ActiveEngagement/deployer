@@ -20,22 +20,11 @@ class BundlesRepository implements BundlesRepositoryInterface
 
     public function all(int $limit = null): Collection
     {
-        $all = $this->getBundles();
-
-        if (! is_null($limit)) {
-            $all = $all->sortByDesc->bundled_at;
-        }
-
-        return $all->sortByDesc->bundled_at;
-    }
-
-    protected function getBundles(): Collection
-    {
         $bundles = collect();
 
-        $bundleDirs = glob($this->filesystem->joinPaths($this->paths->bundlesDir(), '*'));
+        $bundlePaths = glob($this->filesystem->joinPaths($this->paths->bundlesDir(), '*'));
 
-        foreach ($bundleDirs as $bundlePath) {
+        foreach ($bundlePaths as $bundlePath) {
             $bundle = $this->getBundle($bundlePath);
 
             if ($bundle) {
@@ -45,7 +34,11 @@ class BundlesRepository implements BundlesRepositoryInterface
             }
         }
 
-        return $bundles;
+        if (! is_null($limit)) {
+            $bundles = $bundles->take($limit);
+        }
+
+        return $bundles->sortByDesc->bundled_at;
     }
 
     protected function getBundle(string $path): ?Bundle
