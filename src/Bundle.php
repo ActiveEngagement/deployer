@@ -78,18 +78,18 @@ final class Bundle
      */
     public static function fromJson(string $path, string $json): self
     {
-        $array = json_decode($json, true);
+        $array = collect(json_decode($json, true));
 
         return new self(
             path: $path,
-            commit: $array['commit'],
-            initiator: $array['initiator'],
-            env: $array['env'],
-            version: $array['version'],
-            bundled_at: Carbon::createFromTimestamp($array['bundled_at']),
-            committed_at: Carbon::createFromTimestamp($array['committed_at']),
-            git_ref: $array['git_ref'],
-            ci_job: $array['ci_job'],
+            commit: $array->get('commit'),
+            initiator: $array->get('initiator'),
+            env: $array->get('env'),
+            version: $array->get('version'),
+            bundled_at: Carbon::createFromTimestamp($array->get('bundled_at')),
+            committed_at: Carbon::createFromTimestamp($array->get('committed_at')),
+            git_ref: $array->get('git_ref'),
+            ci_job: $array->get('ci_job'),
         );
     }
 }
