@@ -12,7 +12,7 @@ class LoggerRepository implements LoggerRepositoryInterface
 
     public function get(): LoggerInterface
     {
-        return $logger ?? new NullLogger;
+        return $this->logger ?? new NullLogger;
     }
 
     public function set(LoggerInterface $logger): void
