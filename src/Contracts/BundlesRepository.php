@@ -3,8 +3,10 @@
 namespace Actengage\Deployer\Contracts;
 
 use Illuminate\Support\LazyCollection;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 interface BundlesRepository
 {
-    function all(int $limit = null): LazyCollection;
+    function all(int $limit = null, LoggerInterface $logger = new NullLogger): LazyCollection;
 }
