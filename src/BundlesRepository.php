@@ -8,6 +8,12 @@ use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Illuminate\Support\Collection;
 
+/**
+ * The package bundles repository.
+ * 
+ * An implementation of {@see Actengage\Deployer\Contracts\BundlesRepository} that traverses the bundles directory and
+ * reads bundle metadata from it.
+ */
 class BundlesRepository implements BundlesRepositoryInterface
 {
     public function __construct
@@ -19,6 +25,18 @@ class BundlesRepository implements BundlesRepositoryInterface
     {
     }
 
+    /**
+     * Gets all bundles.
+     * 
+     * Gets a collection containing `Bundle` instances for every bundle in the bundles directory.
+     * 
+     * Bundles without a `manifest.json` are skipped (a log INFO is generated).
+     * 
+     * Bundles are sorted in descending order by datetime.
+     * 
+     * @param int $limit if given, specifies the maximum number of bundles to return.
+     * @return Collection
+     */
     public function all(int $limit = null): Collection
     {
         $bundles = collect();
@@ -42,6 +60,15 @@ class BundlesRepository implements BundlesRepositoryInterface
         return $bundles->sortByDesc->bundled_at;
     }
 
+    /**
+     * Gets bundle metadata for the given bundle.
+     * 
+     * Attempts to read the manifest of the bundle at the given path and returns an appropriate `Bundle` instance. If
+     * the manifest was missing or malformed, `null` is returned.
+     * 
+     * @param string $path the full path to the bundle.
+     * @return ?Bundle a `Bundle` instance containing the bundle's metadata, or `null` if it could not be read.
+     */
     protected function getBundle(string $path): ?Bundle
     {
         $manifestPath = $this->filesystem->joinPaths($path, 'manifest.json');
@@ -50,6 +77,6 @@ class BundlesRepository implements BundlesRepositoryInterface
             return null;
         }
 
-        return Bundle::fromJson(file_get_contents($manifestPath));
+        return Bundle::fromJson($path, file_get_contents($manifestPath));
     }
 }
