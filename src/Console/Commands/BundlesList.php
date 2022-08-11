@@ -22,7 +22,14 @@ final class BundlesList extends Command
         $headers = ['Bundled At', 'Version', 'Commit'];
         $rows = [];
 
-        $bundles->all(limit: (int) $this->option('limit'), logger: $logger)->each(function (Bundle $bundle) use ($rows) {
+        $all = $bundles->all(limit: (int) $this->option('limit'), logger: $logger);
+
+        if ($all->isEmpty()) {
+            $this->info('No bundles found!');
+            return 0;
+        }
+        
+        $all->each(function (Bundle $bundle) use ($rows) {
             $rows [] = [
                 $bundle->bundled_at->toDateTimeString(),
                 $bundle->version,
