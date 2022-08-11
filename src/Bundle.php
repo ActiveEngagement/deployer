@@ -57,6 +57,18 @@ final class Bundle
     }
 
     /**
+     * Gets the file name.
+     * 
+     * Gets the name of the bundle directory on disk by parsing its path on disk.
+     * 
+     * @return string
+     */
+    public function fileName(): string
+    {
+        return basename($this->path);
+    }
+
+    /**
      * Creates a new instance of Bundle by parsing raw JSON.
      * 
      * Creates a new instance of `Bundle` for the given bundle path by parsing the given JSON and reading the metadata
