@@ -6,6 +6,7 @@ use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\Contracts\PathProvider;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * The package bundles repository.
@@ -58,7 +59,7 @@ class BundlesRepository implements BundlesRepositoryInterface
 
     public function whereCommit(string $commit, ?int $limit = null): Collection
     {
-        return $this->withLimit($this->all()->filter(fn (Bundle $b) => $b->commit === $commit), $limit);
+        return $this->withLimit($this->all()->filter(fn (Bundle $b) => Str::startsWith($b->commit, $commit)), $limit);
     }
 
     protected function withLimit(Collection $collection, ?int $limit): Collection

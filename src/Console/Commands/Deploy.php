@@ -14,7 +14,7 @@ use Actengage\Deployer\Contracts\LoggerRepository;
  */
 final class Deploy extends Command
 {
-    protected $signature = 'deployer {--latest} {--commit=none} {--version=none} {--verbosity=1}';
+    protected $signature = 'deployer {--latest} {--commit=none} {--release=none} {--verbosity=1}';
 
     protected $description = 'Safely deploys artifacts from the given bundle.';
 
@@ -25,10 +25,10 @@ final class Deploy extends Command
         $bundle = $this->getBundle($bundles);
 
         if (! $bundle) {
-            $this->error('The bundle to deploy must be given with one of the following options: --latest, --commmit=, or --version.');
+            return 1;
         }
 
-        $deployer->deploy($this->argument('bundle'));
+        $deployer->deploy($bundle->path);
 
         return 0;
     }
@@ -37,11 +37,19 @@ final class Deploy extends Command
     {
         if ($this->option('latest')) {
             return $bundles->all(limit: 1)->first();
-        } else if ($this->option('version') !== 'none') {
-            return $bundles->whereVersion($this->option('version'), limit: 1)->first();
+        } else if ($this->option('release') !== 'none') {
+            return $bundles->whereVersion($this->option('release'), limit: 1)->first();
         } else if ($this->option('commit') !== 'none') {
-            return $bundles->whereCommit($this->option('commit'), limit: 1)->first();
+            $matches = $bundles->whereCommit($this->option('commit'));
+
+            if ($matches->count() > 1) {
+                $this->error('Ambiguous commit SHA!');
+                return null;
+            } else {
+                return $matches->first();
+            }
         } else {
+            $this->error('The bundle to deploy must be given with one of the following options: --latest, --commit, or --release.');
             return null;
         }
     }

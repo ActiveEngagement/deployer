@@ -38,16 +38,15 @@ class BundleDeployer
     /**
      * Deploys a bundle.
      *
-     * Deploys the artifact bundle with the given name.
+     * Deploys the artifact bundle at the given path.
      *
-     * @param  string  $bundleName the name of the bundle (which will be retrieved from the bundles directory) to
-     * deploy.
+     * @param  string  $bundlePath  the full path to the bundle to deploy.
      * @return void
      */
-    public function deploy(string $bundleName): void
+    public function deploy(string $bundlePath): void
     {
         foreach ($this->artifactRules as $from => $to) {
-            $fromFullPath = $this->filesystem->joinPaths($this->paths->bundlesDir(), $bundleName, $from);
+            $fromFullPath = $this->filesystem->joinPaths($bundlePath, $from);
             if (! file_exists($fromFullPath)) {
                 $this->logger->get()->notice("Skipping deployment for $fromFullPath since it doesn't exist in the bundle.");
 
