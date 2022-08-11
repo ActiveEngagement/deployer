@@ -10,9 +10,9 @@ use Actengage\Deployer\Contracts\LoggerRepository;
  *
  * A custom Artisan command that gets, extracts, and deploys the artifacts in a given bundle.
  */
-final class Artifacts extends Command
+final class Deploy extends Command
 {
-    protected $signature = 'deployer:artifacts {bundle} {--verbosity=1}';
+    protected $signature = 'deployer {bundle} {--verbosity=1}';
 
     protected $description = 'Safely deploys artifacts from the given bundle.';
 
