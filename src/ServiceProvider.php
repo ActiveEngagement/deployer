@@ -7,6 +7,7 @@ use Actengage\Deployer\Console\Commands\BundlesList;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
 use Actengage\Deployer\BundlesRepository;
+use Actengage\Deployer\Console\Commands\Prune;
 use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\LoggerRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -25,7 +26,8 @@ class ServiceProvider extends BaseServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Artifacts::class,
-                BundlesList::class
+                BundlesList::class,
+                Prune::class
             ]);
         }
 
