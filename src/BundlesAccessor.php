@@ -9,12 +9,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
- * The package bundles repository.
- *
- * An implementation of {@see Actengage\Deployer\Contracts\BundlesRepository} that traverses the bundles directory and
- * reads bundle metadata from it.
+ * Accesses bundles.
+ * 
+ * A class that is capable of getting a list of bundles in the bundles directory and their metadata.
  */
-class BundlesRepository implements BundlesRepositoryInterface
+class BundlesAccessor
 {
     public function __construct(
         protected FilesystemUtility $filesystem,
@@ -49,22 +48,13 @@ class BundlesRepository implements BundlesRepositoryInterface
             }
         });
 
-        return $this->withLimit($bundles->sortByDesc->bundled_at, $limit);
-    }
+        $bundles = $bundles->sortByDesc->bundled_at;
 
-    public function whereVersion(string $version, ?int $limit = null): Collection
-    {
-        return $this->withLimit($this->all()->filter(fn (Bundle $b) => $b->version === $version), $limit);
-    }
+        if (! is_null($limit)) {
+            $bundles = $bundles->take($limit);
+        }
 
-    public function whereCommit(string $commit, ?int $limit = null): Collection
-    {
-        return $this->withLimit($this->all()->filter(fn (Bundle $b) => Str::startsWith($b->commit, $commit)), $limit);
-    }
-
-    protected function withLimit(Collection $collection, ?int $limit): Collection
-    {
-        return is_null($limit) ? $collection : $collection->take($limit);
+        return $bundles;
     }
 
     /**

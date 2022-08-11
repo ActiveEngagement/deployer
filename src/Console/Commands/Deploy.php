@@ -4,8 +4,10 @@ namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundleDeployer;
+use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
+use Illuminate\Support\Str;
 
 /**
  * A command that gets pre-built artifacts.
@@ -18,7 +20,7 @@ final class Deploy extends Command
 
     protected $description = 'Safely deploys artifacts from the given bundle.';
 
-    public function handle(LoggerRepository $logger, BundlesRepository $bundles, BundleDeployer $deployer): int
+    public function handle(LoggerRepository $logger, BundlesAccessor $bundles, BundleDeployer $deployer): int
     {
         $logger->set($this->createLogger());
 
@@ -33,7 +35,7 @@ final class Deploy extends Command
         return 0;
     }
 
-    private function getBundle(BundlesRepository $bundles): ?Bundle
+    private function getBundle(BundlesAccessor $bundles): ?Bundle
     {
         $bundle = null;
         if ($this->option('latest')) {
@@ -44,14 +46,14 @@ final class Deploy extends Command
             }
         } else if ($this->option('release') !== 'none') {
             $version = $this->option('release');
-            $bundle = $bundles->whereVersion($this->option('release'), limit: 1)->first();
+            $bundle = $bundles->all()->first(fn (Bundle $b) => $b->release === $this->option('release'));
 
             if (is_null($bundle)) {
                 $this->error("No bundle with version $version found.");
             }
         } else if ($this->option('commit') !== 'none') {
             $commit = $this->option('commit');
-            $matches = $bundles->whereCommit($commit);
+            $matches = $bundles->all()->filter(fn (Bundle $b) => Str::startsWith($b->commit, $commit));
 
             if ($matches->count() === 1) {
                 $bundle = $matches->first();

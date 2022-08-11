@@ -3,6 +3,7 @@
 namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\Bundle;
+use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
 
@@ -12,13 +13,13 @@ use Actengage\Deployer\Contracts\LoggerRepository;
  * A custom Artisan command that traverses the bundles directory for available, deployable artifact bundles and displays
  * them to the user.
  */
-final class BundlesList extends Command
+final class ListBundles extends Command
 {
     protected $signature = 'deployer:list {--limit=10} {--verbosity=1}';
 
     protected $description = 'Lists all deployable artifact bundles.';
 
-    public function handle(LoggerRepository $logger, BundlesRepository $bundles): int
+    public function handle(LoggerRepository $logger, BundlesAccessor $bundles): int
     {
         $logger->set($this->createLogger());
 

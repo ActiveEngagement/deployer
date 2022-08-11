@@ -3,9 +3,9 @@
 namespace Actengage\Deployer;
 
 use Actengage\Deployer\Console\Commands\Deploy;
-use Actengage\Deployer\Console\Commands\BundlesList;
+use Actengage\Deployer\Console\Commands\ListBundles;
 use Actengage\Deployer\Console\Commands\Prune;
-use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
+use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -24,17 +24,17 @@ class ServiceProvider extends BaseServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Deploy::class,
-                BundlesList::class,
+                ListBundles::class,
                 Prune::class,
             ]);
         }
 
         $this->app->singleton(FilesystemUtility::class);
+        $this->app->singleton(BundlesAccessor::class);
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
         $this->app->singleton(BundlePruner::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
-        $this->app->singleton(BundlesRepositoryInterface::class, BundlesRepository::class);
         $this->app->singleton(LoggerRepositoryInterface::class, LoggerRepository::class);
 
         $this->app->when(PathProvider::class)
