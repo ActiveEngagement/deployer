@@ -6,23 +6,21 @@ use Actengage\Deployer\Contracts\PathProvider;
 use Actengage\Deployer\FilesystemUtility;
 use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
 use Illuminate\Support\Collection;
-use Illuminate\Support\LazyCollection;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class BundlesRepository implements BundlesRepositoryInterface
 {
     public function __construct
     (
         protected FilesystemUtility $filesystem,
-        protected PathProvider $paths
+        protected PathProvider $paths,
+        protected LoggerRepository $logger
     )
     {
     }
 
-    public function all(int $limit = null, LoggerInterface $logger = new NullLogger): Collection
+    public function all(int $limit = null): Collection
     {
-        $all = $this->getBundles($logger);
+        $all = $this->getBundles();
 
         if (! is_null($limit)) {
             $all = $all->sortByDesc->bundled_at;
@@ -31,7 +29,7 @@ class BundlesRepository implements BundlesRepositoryInterface
         return $all->sortByDesc->bundled_at;
     }
 
-    protected function getBundles(LoggerInterface $logger): Collection
+    protected function getBundles(): Collection
     {
         $bundles = collect();
 
@@ -43,7 +41,7 @@ class BundlesRepository implements BundlesRepositoryInterface
             if ($bundle) {
                 $bundles->add($bundle);
             } else {
-                $logger->info("Skipping $bundlePath because its manifest file was missing or malformed.");
+                $this->logger->get()->info("Skipping $bundlePath because its manifest file was missing or malformed.");
             }
         }
 

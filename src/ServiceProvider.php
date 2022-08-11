@@ -7,6 +7,8 @@ use Actengage\Deployer\Console\Commands\BundlesList;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
 use Actengage\Deployer\BundlesRepository;
+use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
+use Actengage\Deployer\LoggerRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -32,6 +34,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(BundleDeployer::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
         $this->app->singleton(BundlesRepositoryInterface::class, BundlesRepository::class);
+        $this->app->singleton(LoggerRepositoryInterface::class, LoggerRepository::class);
 
         $this->app->when(PathProvider::class)
             ->needs('$deploymentDir')

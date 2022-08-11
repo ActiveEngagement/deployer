@@ -5,6 +5,7 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\CommandLogger;
 use Actengage\Deployer\Contracts\BundlesRepository;
+use Actengage\Deployer\Contracts\LoggerRepository;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -15,14 +16,14 @@ final class BundlesList extends Command
 
     protected $description = '';
 
-    public function handle(BundlesRepository $bundles): int
+    public function handle(LoggerRepository $logger, BundlesRepository $bundles): int
     {
-        $logger = $this->createLogger();
+        $logger->set($this->createLogger());
 
         $headers = ['#', 'Bundled At', 'Version', 'Commit'];
         $rows = [];
 
-        $all = $bundles->all(limit: (int) $this->option('limit'), logger: $logger);
+        $all = $bundles->all(limit: (int) $this->option('limit'));
 
         if ($all->isEmpty()) {
             $this->info('No bundles found!');

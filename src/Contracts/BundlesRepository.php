@@ -8,5 +8,5 @@ use Psr\Log\NullLogger;
 
 interface BundlesRepository
 {
-    function all(int $limit = null, LoggerInterface $logger = new NullLogger): Collection;
+    function all(int $limit = null): Collection;
 }
