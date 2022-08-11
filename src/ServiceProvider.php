@@ -2,7 +2,7 @@
 
 namespace Actengage\Deployer;
 
-use Actengage\Deployer\Console\Commands\Artifacts;
+use Actengage\Deployer\Console\Commands\Deploy;
 use Actengage\Deployer\Console\Commands\ListBundles;
 use Actengage\Deployer\Console\Commands\Prune;
 use Actengage\Deployer\BundlesAccessor;
@@ -23,7 +23,7 @@ class ServiceProvider extends BaseServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Artifacts::class,
+                Deploy::class,
                 ListBundles::class,
                 Prune::class,
             ]);
