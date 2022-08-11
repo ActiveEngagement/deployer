@@ -4,6 +4,7 @@ namespace Tests;
 
 use Actengage\Deployer\ArtifactDeployer;
 use Actengage\Deployer\BundleDeployer;
+use Actengage\Deployer\BundlePruner;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -36,6 +37,7 @@ class TestCase extends BaseTestCase
         $this->app->singleton(FilesystemUtility::class);
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
+        $this->app->singleton(BundlePruner::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
         $this->app->singleton(LoggerRepositoryInterface::class, LoggerRepository::class);
 
