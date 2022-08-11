@@ -8,7 +8,7 @@ use Psr\Log\NullLogger;
 
 /**
  * The package's logger repository.
- * 
+ *
  * A basic implementation of {@see Actengage\Deployer\Contracts\LoggerRepository}.
  */
 class LoggerRepository implements LoggerRepositoryInterface

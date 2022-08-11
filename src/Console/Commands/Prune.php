@@ -3,7 +3,6 @@
 namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\BundlePruner;
-use Actengage\Deployer\Console\Commands\Command;
 use Actengage\Deployer\Contracts\LoggerRepository;
 
 /**

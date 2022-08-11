@@ -5,7 +5,6 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
-use Actengage\Deployer\Console\Commands\Command;
 
 /**
  * A command that lists bundles
@@ -30,16 +29,17 @@ final class BundlesList extends Command
 
         if ($all->isEmpty()) {
             $this->info('No bundles found!');
+
             return 0;
         }
-        
+
         $n = 1;
         $all->each(function (Bundle $bundle) use (&$n, &$rows) {
             $rows[] = [
                 $n, // #
                 $bundle->bundled_at->format('Y-m-d H:i'), // Bundled At
                 $bundle->version, // Version
-                $bundle->shortCommit() // Commit
+                $bundle->shortCommit(), // Commit
             ];
             $n++;
         });

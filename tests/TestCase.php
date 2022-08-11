@@ -5,13 +5,13 @@ namespace Tests;
 use Actengage\Deployer\ArtifactDeployer;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundlePruner;
+use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
+use Actengage\Deployer\LoggerRepository;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionClass;
 use Tests\Support\PathProvider;
-use Actengage\Deployer\LoggerRepository;
-use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 
 class TestCase extends BaseTestCase
 {

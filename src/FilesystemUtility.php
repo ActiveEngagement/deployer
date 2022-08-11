@@ -44,12 +44,12 @@ class FilesystemUtility
 
     /**
      * Iterates over each directory child.
-     * 
+     *
      * Iterates over every file and directory in the given directory, passing the full file path of each child to the
      * callback.
-     * 
-     * @param string $path the path to the directory whose children should be iterated over.
-     * @param callable $callback the callback to invoke for each child.
+     *
+     * @param  string  $path the path to the directory whose children should be iterated over.
+     * @param  callable  $callback the callback to invoke for each child.
      * @return void
      */
     public function eachChild(string $path, callable $callback): void
