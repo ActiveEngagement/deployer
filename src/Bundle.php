@@ -33,6 +33,6 @@ final class Bundle
             committed_at: Carbon::createFromTimestamp($array['committed_at']),
             git_ref: $array['git_ref'],
             ci_job: $array['ci_job'],
-        )
+        );
     }
 }
