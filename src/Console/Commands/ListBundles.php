@@ -12,7 +12,7 @@ use Actengage\Deployer\Contracts\LoggerRepository;
  * A custom Artisan command that traverses the bundles directory for available, deployable artifact bundles and displays
  * them to the user.
  */
-final class BundlesList extends Command
+final class ListBundles extends Command
 {
     protected $signature = 'deployer:list {--limit=10} {--verbosity=1}';
 
