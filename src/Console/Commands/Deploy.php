@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
  */
 final class Deploy extends Command
 {
-    protected $signature = 'deployer {--latest} {--commit=none} {--release=none} {--verbosity=1}';
+    protected $signature = 'deployer {--latest} {--commit=none} {--bundle-version=none} {--verbosity=1}';
 
     protected $description = 'Safely deploys artifacts from the given bundle.';
 
@@ -38,22 +38,24 @@ final class Deploy extends Command
     private function getBundle(BundlesAccessor $bundles): ?Bundle
     {
         $bundle = null;
+
+        $version = $this->option('bundle-version');
+        $commit = $this->option('commit');
+
         if ($this->option('latest')) {
             $bundle = $bundles->all(limit: 1)->first();
 
             if (is_null($bundle)) {
                 $this->error('No latest bundle found.');
             }
-        } else if ($this->option('release') !== 'none') {
-            $version = $this->option('release');
-            $bundle = $bundles->all()->first(fn (Bundle $b) => $b->release === $this->option('release'));
+        } else if ($version !== 'none') {
+            $bundle = $bundles->all()->first(fn ($b) => $b->version === $version);
 
             if (is_null($bundle)) {
                 $this->error("No bundle with version $version found.");
             }
-        } else if ($this->option('commit') !== 'none') {
-            $commit = $this->option('commit');
-            $matches = $bundles->all()->filter(fn (Bundle $b) => Str::startsWith($b->commit, $commit));
+        } else if ($commit !== 'none') {
+            $matches = $bundles->all()->filter(fn ($b) => Str::startsWith($b->commit, $commit));
 
             if ($matches->count() === 1) {
                 $bundle = $matches->first();
@@ -63,7 +65,7 @@ final class Deploy extends Command
                 $this->error('Ambiguous commit SHA!');
             }
         } else {
-            $this->error('The bundle to deploy must be given with one of the following options: --latest, --commit, or --release.');
+            $this->error('The bundle to deploy must be given with one of the following options: --latest, --commit, or --bundle-version.');
         }
 
         return $bundle;
