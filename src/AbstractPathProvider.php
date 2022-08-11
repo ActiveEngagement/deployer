@@ -21,11 +21,6 @@ abstract class AbstractPathProvider implements PathProvider
         return $this->resolvePath($this->unresolvedBundlesDir());
     }
 
-    public function backupDir(): string
-    {
-        return $this->resolvePath($this->unresolvedBackupDir());
-    }
-
     public function deploymentDir(): string
     {
         return $this->deploymentDir;
@@ -39,15 +34,6 @@ abstract class AbstractPathProvider implements PathProvider
      * @return string
      */
     abstract protected function unresolvedBundlesDir(): string;
-
-    /**
-     * Gets the unresolved backup dir.
-     *
-     * Should get the raw, unresolved path to the backup directory. It will be resolved from the deployment root.
-     *
-     * @return string
-     */
-    abstract protected function unresolvedBackupDir(): string;
 
     /**
      * Resolves the given path.

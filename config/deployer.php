@@ -14,18 +14,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Backup Directory
-    |--------------------------------------------------------------------------
-    |
-    | This value is the path (absolute or relative to the deployment root) to
-    | the directory to where existing artifacts should be backed up before the
-    | deployment overwrites them.
-    */
-
-    'backup_dir' => env('DEPLOYER_BACKUP_DIR', 'storage/deployer/old_artifacts'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Artifact Rules
     |--------------------------------------------------------------------------
     |
