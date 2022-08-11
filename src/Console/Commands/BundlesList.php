@@ -31,7 +31,6 @@ final class BundlesList extends Command
         }
         
         $n = 1;
-
         $all->each(function (Bundle $bundle) use (&$n, &$rows) {
             $rows[] = [
                 $n,
