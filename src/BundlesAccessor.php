@@ -8,12 +8,11 @@ use Actengage\Deployer\Contracts\PathProvider;
 use Illuminate\Support\Collection;
 
 /**
- * The package bundles repository.
- *
- * An implementation of {@see Actengage\Deployer\Contracts\BundlesRepository} that traverses the bundles directory and
- * reads bundle metadata from it.
+ * Accesses bundles.
+ * 
+ * A class that is capable of getting a list of bundles in the bundles directory and their metadata.
  */
-class BundlesRepository implements BundlesRepositoryInterface
+class BundlesAccessor
 {
     public function __construct(
         protected FilesystemUtility $filesystem,

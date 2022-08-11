@@ -14,7 +14,7 @@ class BundlePruner
 {
     public function __construct(
         protected FilesystemUtility $filesystem,
-        protected BundlesRepository $bundles,
+        protected BundlesAccessor $bundles,
         protected LoggerRepository $logger
     ) {
     }

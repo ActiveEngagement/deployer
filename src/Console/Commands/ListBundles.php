@@ -3,6 +3,7 @@
 namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\Bundle;
+use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
 
@@ -18,7 +19,7 @@ final class ListBundles extends Command
 
     protected $description = 'Lists all deployable artifact bundles.';
 
-    public function handle(LoggerRepository $logger, BundlesRepository $bundles): int
+    public function handle(LoggerRepository $logger, BundlesAccessor $bundles): int
     {
         $logger->set($this->createLogger());
 
