@@ -32,20 +32,6 @@ Publish the configuration:
 php artisan vendor:publish --tag=deployer-config
 ```
 
-After configuring your directory structure (see below), you may wish to automatically create the `deployer` directories:
-
-```bash
-php artisan deployer:install
-```
-
-By default, this will create the following directories:
-
-```
-storage/deployer
-├── artifact_bundles
-└── old_artifacts
-```
-
 ## Artifacts
 
 `deployer` can deploy one or more "artifacts" from an "artifact bundle" directory on the filesystem. You may specify where you'd like to deploy each artifact in `config/deployer.php`:
@@ -60,7 +46,7 @@ return [
 ];
 ```
 
-In this case, `deployer` will look for a file called `some_artifact.txt` inside the artifact bundle and copy it to `path/to/destination.txt`. If `path/to/destination.txt` already exists, it will first be backed up to the backup folder.
+In this case, `deployer` will look for a file called `some_artifact.txt` inside the artifact bundle and copy it to `path/to/destination.txt`. **If `path/to/destination.txt` already exists, it will be removed.**
 
 Directories are allowed too:
 
@@ -74,7 +60,7 @@ return [
 ];
 ```
 
-`public/build/assets` will be replaced each deployment by the `assets` directory in the bundle (after being backed up).
+`public/build/assets` will be replaced each deployment by the `assets` directory in the bundle.
 
 ## Usage
 
@@ -92,17 +78,9 @@ php artisan deployer:artifacts 2022-08-04
 
 `deployer` will look in the bundles directory (`storage/deployer/artifact_bundles` by default) for a directory named `2022-08-04` and will deploy its artifacts.
 
-## Backups
-
-Before overwriting an existing file or directory during an artifact deployment, `deployer` will first back it up to the backup directory in case the deployment fails. The file structure within the backup directory mirrors that of the deployment root (which is the current directory by default).
-
-For example, if the directory 'public/build/assets' is about to be overwriten, with the default configuration, `deployer` will move it to `storage/deployer/old_artifacts/public/build/assets` first.
-
-Only the last version of an artifact before the deployment is preserved; previous backups are overwriten.
-
 ## Configuration
 
-You may customize the various directories used by `deployer` in `config/deployer.php`:
+You may customize the bundles directory used by `deployer` in `config/deployer.php`:
 
 ```php
 <?php
@@ -118,18 +96,6 @@ return [
     */
 
     'bundles_dir' => env('DEPLOYER_BUNDLES_DIR', 'storage/artifact_bundles'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Backup Directory
-    |--------------------------------------------------------------------------
-    |
-    | This value is the path (absolute or relative to the deployment root) to
-    | the directory to where existing artifacts should be backed up before the
-    | deployment overwrites them.
-    */
-
-    'backup_dir' => env('DEPLOYER_BACKUP_DIR', 'storage/old_artifacts'),
 ];
 ```
 
