@@ -40,6 +40,11 @@ class BundlesRepository implements BundlesRepositoryInterface
     protected function getBundle(string $path): ?Bundle
     {
         $manifestPath = $this->filesystem->joinPaths($path, 'manifest.json');
+
+        if (!file_exists($manifestPath)) {
+            return null;
+        }
+
         return Bundle::fromJson(file_get_contents($manifestPath));
     }
 }
