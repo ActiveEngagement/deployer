@@ -20,7 +20,7 @@ class BundlesRepository implements BundlesRepositoryInterface
     public function all(int $limit = null): LazyCollection
     {
         $all = LazyCollection::make(function() {
-            $bundleDirs = scandir($this->paths->bundlesDir());
+            $bundleDirs = glob($this->filesystem->joinPaths($this->paths->bundlesDir(), '*'));
             foreach ($bundleDirs as $bundlePath) {
                 yield $this->getBundle($bundlePath);
             }
