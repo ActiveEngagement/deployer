@@ -35,22 +35,35 @@ final class Deploy extends Command
 
     private function getBundle(BundlesRepository $bundles): ?Bundle
     {
+        $bundle = null;
         if ($this->option('latest')) {
-            return $bundles->all(limit: 1)->first();
-        } else if ($this->option('release') !== 'none') {
-            return $bundles->whereVersion($this->option('release'), limit: 1)->first();
-        } else if ($this->option('commit') !== 'none') {
-            $matches = $bundles->whereCommit($this->option('commit'));
+            $bundle = $bundles->all(limit: 1)->first();
 
-            if ($matches->count() > 1) {
-                $this->error('Ambiguous commit SHA!');
-                return null;
+            if (is_null($bundle)) {
+                $this->error('No latest bundle found.');
+            }
+        } else if ($this->option('release') !== 'none') {
+            $version = $this->option('release');
+            $bundle = $bundles->whereVersion($this->option('release'), limit: 1)->first();
+
+            if (is_null($bundle)) {
+                $this->error("No bundle with version $version found.");
+            }
+        } else if ($this->option('commit') !== 'none') {
+            $commit = $this->option('commit');
+            $matches = $bundles->whereCommit($commit);
+
+            if ($matches->count() === 1) {
+                $bundle = $matches->first();
+            } else if ($matches->count() === 0) {
+                $this->error("No bundles with commit $commit found.");
             } else {
-                return $matches->first();
+                $this->error('Ambiguous commit SHA!');
             }
         } else {
             $this->error('The bundle to deploy must be given with one of the following options: --latest, --commit, or --release.');
-            return null;
         }
+
+        return $bundle;
     }
 }
