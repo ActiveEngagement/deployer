@@ -5,6 +5,7 @@ namespace Actengage\Deployer;
 use Actengage\Deployer\Contracts\PathProvider;
 use Actengage\Deployer\FilesystemUtility;
 use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
+use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -19,22 +20,34 @@ class BundlesRepository implements BundlesRepositoryInterface
     {
     }
 
-    public function all(int $limit = null, LoggerInterface $logger = new NullLogger): LazyCollection
+    public function all(int $limit = null, LoggerInterface $logger = new NullLogger): Collection
     {
-        $all = LazyCollection::make(function() use ($logger) {
-            $bundleDirs = glob($this->filesystem->joinPaths($this->paths->bundlesDir(), '*'));
-            foreach ($bundleDirs as $bundlePath) {
-                $bundle = $this->getBundle($bundlePath);
+        $all = $this->getBundles($logger);
 
-                if ($bundle) {
-                    yield $bundle;
-                } else {
-                    $logger->info("Skipping $bundlePath because its manifest file was missing or malformed.");
-                }
+        if (! is_null($limit)) {
+            $all = $all->sortByDesc->bundled_at;
+        }
+
+        return $all->sortByDesc->bundled_at;
+    }
+
+    protected function getBundles(LoggerInterface $logger): Collection
+    {
+        $bundles = collect();
+
+        $bundleDirs = glob($this->filesystem->joinPaths($this->paths->bundlesDir(), '*'));
+
+        foreach ($bundleDirs as $bundlePath) {
+            $bundle = $this->getBundle($bundlePath);
+
+            if ($bundle) {
+                $bundles->add($bundle);
+            } else {
+                $logger->info("Skipping $bundlePath because its manifest file was missing or malformed.");
             }
-        });
+        }
 
-        return is_null($limit) ? $all : $all->take($limit);
+        return $bundles;
     }
 
     protected function getBundle(string $path): ?Bundle

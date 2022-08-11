@@ -3,6 +3,7 @@
 namespace Actengage\Deployer;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 final class Bundle
 {
@@ -18,6 +19,11 @@ final class Bundle
         public string $ci_job
     )
     {
+    }
+
+    public function shortCommit(): string
+    {
+        return Str::substr($this->commit, 0, 7);
     }
 
     public static function fromJson(string $json): self

@@ -19,7 +19,7 @@ final class BundlesList extends Command
     {
         $logger = $this->createLogger();
 
-        $headers = ['Bundled At', 'Version', 'Commit'];
+        $headers = ['#', 'Bundled At', 'Version', 'Commit'];
         $rows = [];
 
         $all = $bundles->all(limit: (int) $this->option('limit'), logger: $logger);
@@ -29,12 +29,16 @@ final class BundlesList extends Command
             return 0;
         }
         
-        $all->each(function (Bundle $bundle) use ($rows) {
-            $rows [] = [
-                $bundle->bundled_at->toDateTimeString(),
+        $n = 1;
+
+        $all->each(function (Bundle $bundle) use (&$n, &$rows) {
+            $rows[] = [
+                $n,
+                $bundle->bundled_at->format('Y-m-d H:i'),
                 $bundle->version,
-                $bundle->commit
+                $bundle->shortCommit()
             ];
+            $n++;
         });
 
         $this->table($headers, $rows);
