@@ -21,9 +21,13 @@ final class Prune extends Command
     {
         $logger->set($this->createLogger());
 
-        $deleted = $pruner->prune((int) $this->options('keep'));
+        $deleted = $pruner->prune((int) $this->option('keep'));
 
-        $this->info("Removed $deleted bundles.");
+        if ($deleted > 0) {
+            $this->info("Removed $deleted bundles.");
+        } else {
+            $this->info('No bundles to remove.');
+        }
 
         return 0;
     }
