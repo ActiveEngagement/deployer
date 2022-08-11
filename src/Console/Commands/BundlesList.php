@@ -10,11 +10,17 @@ use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
+/**
+ * A command that lists bundles
+ *
+ * A custom Artisan command that traverses the bundles directory for available, deployable artifact bundles and displays
+ * them to the user.
+ */
 final class BundlesList extends Command
 {
     protected $signature = 'deployer:list {--limit=10} {--verbosity=1}';
 
-    protected $description = '';
+    protected $description = 'Lists all deployable artifact bundles.';
 
     public function handle(LoggerRepository $logger, BundlesRepository $bundles): int
     {
