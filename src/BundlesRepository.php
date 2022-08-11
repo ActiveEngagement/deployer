@@ -48,11 +48,13 @@ class BundlesRepository implements BundlesRepositoryInterface
             }
         });
 
+        $bundles = $bundles->sortByDesc->bundled_at;
+
         if (! is_null($limit)) {
             $bundles = $bundles->take($limit);
         }
 
-        return $bundles->sortByDesc->bundled_at;
+        return $bundles;
     }
 
     /**
