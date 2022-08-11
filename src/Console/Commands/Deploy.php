@@ -37,9 +37,9 @@ final class Deploy extends Command
     {
         if ($this->option('latest')) {
             return $bundles->all(limit: 1)->first();
-        } else if ($this->hasOption('version')) {
+        } else if ($this->option('version') !== 'none') {
             return $bundles->whereVersion($this->option('version'), limit: 1)->first();
-        } else if ($this->hasOption('commit')) {
+        } else if ($this->option('commit') !== 'none') {
             return $bundles->whereCommit($this->option('commit'), limit: 1)->first();
         } else {
             return null;
