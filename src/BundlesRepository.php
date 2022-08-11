@@ -5,6 +5,7 @@ namespace Actengage\Deployer;
 use Actengage\Deployer\Contracts\PathProvider;
 use Actengage\Deployer\FilesystemUtility;
 use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
+use Actengage\Deployer\Contracts\LoggerRepository;
 use Illuminate\Support\Collection;
 
 class BundlesRepository implements BundlesRepositoryInterface
