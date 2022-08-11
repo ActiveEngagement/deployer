@@ -4,10 +4,8 @@ namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\CommandLogger;
+use Actengage\Deployer\Console\Commands\Command;
 use Actengage\Deployer\Contracts\LoggerRepository;
-use Illuminate\Console\Command;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
 
 /**
  * A command that gets pre-built artifacts.
@@ -26,17 +24,5 @@ final class Artifacts extends Command
         $deployer->deploy($this->argument('bundle'));
 
         return 0;
-    }
-
-    private function createLogger(): LoggerInterface
-    {
-        $logLevel = match ((int) $this->option('verbosity')) {
-            0 => LogLevel::ERROR,
-            1 => LogLevel::NOTICE,
-            2 => LogLevel::INFO,
-            default => LogLevel::DEBUG,
-        };
-
-        return new CommandLogger($this, $logLevel);
     }
 }
