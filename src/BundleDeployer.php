@@ -4,8 +4,6 @@ namespace Actengage\Deployer;
 
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\Contracts\PathProvider;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * Deploys a bundle.
