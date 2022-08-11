@@ -25,4 +25,8 @@ interface BundlesRepository
      * @return Collection
      */
     public function all(int $limit = null): Collection;
+
+    public function whereVersion(string $version, int $limit = null): Collection;
+
+    public function whereCommit(string $commit, int $limit = null): Collection;
 }

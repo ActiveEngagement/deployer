@@ -2,7 +2,9 @@
 
 namespace Actengage\Deployer\Console\Commands;
 
+use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundleDeployer;
+use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
 
 /**
@@ -12,15 +14,35 @@ use Actengage\Deployer\Contracts\LoggerRepository;
  */
 final class Deploy extends Command
 {
-    protected $signature = 'deployer {bundle} {--verbosity=1}';
+    protected $signature = 'deployer {--latest} {--commit=none} {--version=none} {--verbosity=1}';
 
     protected $description = 'Safely deploys artifacts from the given bundle.';
 
-    public function handle(LoggerRepository $logger, BundleDeployer $deployer): int
+    public function handle(LoggerRepository $logger, BundlesRepository $bundles, BundleDeployer $deployer): int
     {
         $logger->set($this->createLogger());
+
+        $bundle = $this->getBundle($bundles);
+
+        if (! $bundle) {
+            $this->error('The bundle to deploy must be given with one of the following options: --latest, --commmit=, or --version.');
+        }
+
         $deployer->deploy($this->argument('bundle'));
 
         return 0;
+    }
+
+    private function getBundle(BundlesRepository $bundles): ?Bundle
+    {
+        if ($this->option('latest')) {
+            return $bundles->all(limit: 1)->first();
+        } else if ($this->hasOption('version')) {
+            return $bundles->whereVersion($this->option('version'), limit: 1)->first();
+        } else if ($this->hasOption('commit')) {
+            return $bundles->whereCommit($this->option('commit'), limit: 1)->first();
+        } else {
+            return null;
+        }
     }
 }

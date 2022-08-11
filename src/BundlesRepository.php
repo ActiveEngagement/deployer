@@ -48,11 +48,22 @@ class BundlesRepository implements BundlesRepositoryInterface
             }
         });
 
-        if (! is_null($limit)) {
-            $bundles = $bundles->take($limit);
-        }
+        return $this->withLimit($bundles->sortByDesc->bundled_at, $limit);
+    }
 
-        return $bundles->sortByDesc->bundled_at;
+    public function whereVersion(string $version, ?int $limit = null): Collection
+    {
+        return $this->withLimit($this->all()->filter(fn (Bundle $b) => $b->version === $version), $limit);
+    }
+
+    public function whereCommit(string $commit, ?int $limit = null): Collection
+    {
+        return $this->withLimit($this->all()->filter(fn (Bundle $b) => $b->commit === $commit), $limit);
+    }
+
+    protected function withLimit(Collection $collection, ?int $limit): Collection
+    {
+        return is_null($limit) ? $collection : $collection->take($limit);
     }
 
     /**
