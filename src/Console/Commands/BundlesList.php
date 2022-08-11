@@ -17,7 +17,7 @@ final class BundlesList extends Command
         $headers = ['Bundled At', 'Version', 'Commit'];
         $rows = [];
 
-        $bundles->all(limit: (int) $this->argument('limit'))->each(function (Bundle $bundle) use ($rows) {
+        $bundles->all(limit: (int) $this->option('limit'))->each(function (Bundle $bundle) use ($rows) {
             $rows [] = [
                 $bundle->bundled_at->toDateTimeString(),
                 $bundle->version,
