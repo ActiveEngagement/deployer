@@ -5,6 +5,7 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\CommandLogger;
 use Actengage\Deployer\Console\Commands\Command;
+use Actengage\Deployer\Contracts\LoggerRepository;
 
 /**
  * A command that gets pre-built artifacts.
@@ -17,10 +18,10 @@ final class Artifacts extends Command
 
     protected $description = 'Safely deploys artifacts from the given bundle.';
 
-    public function handle(BundleDeployer $deployer): int
+    public function handle(LoggerRepository $logger, BundleDeployer $deployer): int
     {
-        $logger = $this->createLogger();
-        $deployer->deploy($this->argument('bundle'), $logger);
+        $logger->set($this->createLogger());
+        $deployer->deploy($this->argument('bundle'));
 
         return 0;
     }
