@@ -129,7 +129,7 @@ return [
     | deployment overwrites them.
     */
 
-    'backup_dir' => env('DEPLOYER_BACKUP_DIR', 'storage/old_artifacts'),
+    'backup_dir' => env('DEPLOYER_BACKUP_DIR', 'storage/deployer/old_artifacts'),
 ];
 ```
 
