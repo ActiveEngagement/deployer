@@ -12,9 +12,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
- * A command that gets pre-built artifacts.
+ * A command that deploys artifact bundles.
  *
- * A custom Artisan command that gets, extracts, and deploys the artifacts in a given bundle.
+ * A custom Artisan command that deploys the artifacts in an artifact bundle to the application.
  */
 final class Deploy extends Command
 {
@@ -26,7 +26,7 @@ final class Deploy extends Command
                             {--N|number=none}
                             {--verbosity=1}';
 
-    protected $description = 'Safely deploys artifacts from the given bundle.';
+    protected $description = 'Deploys an artifact bundle.';
 
     public function handle
     (

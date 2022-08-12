@@ -12,9 +12,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 /**
- * A command that gets pre-built artifacts.
+ * A command that rolls back a deployment.
  *
- * A custom Artisan command that gets, extracts, and deploys the artifacts in a given bundle.
+ * A custom Artisan command that deploys an artifact bundle that is a number of steps before the current one.
+ * 
+ * The effect is something like "rolling back" a deployment, since a previous bundle is deployed.
  */
 final class Rollback extends Command
 {
@@ -22,7 +24,7 @@ final class Rollback extends Command
                             {step=1}
                             {--verbosity=1}';
 
-    protected $description = 'Deploys artifacts from a bundle n steps before the current one.';
+    protected $description = 'Deploys an artifact bundle a number of steps before the current one.';
 
     public function handle
     (

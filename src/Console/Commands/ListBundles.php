@@ -11,7 +11,7 @@ use Actengage\Deployer\CurrentBundleManager;
 use Illuminate\Support\Collection;
 
 /**
- * A command that lists bundles
+ * A command that lists bundles.
  *
  * A custom Artisan command that traverses the bundles directory for available, deployable artifact bundles and displays
  * them to the user.
