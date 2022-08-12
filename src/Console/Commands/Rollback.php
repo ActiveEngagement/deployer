@@ -35,7 +35,7 @@ final class Rollback extends Command
         $currentNumber = $all->search(fn ($b) => $currentBundle->is($b));
 
         if ($currentNumber === false) {
-            $this->error('The deployment head is broken. We are unable to determine the currently deployed bundle. Please fix this by running "php artisan deployer --latest".');
+            $this->errorHeadBroken();
 
             return 1;
         }
@@ -50,6 +50,11 @@ final class Rollback extends Command
         }
 
         $deployer->deploy($bundle->path);
+
+        $this->info('Bundle deployed!');
+        $this->newLine();
+
+        $this->call('deployer:status');
 
         return 0;
     }

@@ -19,9 +19,16 @@ class AnsiUtility
 
     public const BOLD_OFF = '22';
 
+    public const RESET_COLOR = '39';
+
     public function bold(string $input): string
     {
         return $this->code(self::BOLD_ON).$input.$this->code(self::BOLD_OFF);
+    }
+
+    public function colored(string $input, AnsiColor $color): string
+    {
+        return $this->code($color->code()).$input.$this->code(self::RESET_COLOR);
     }
 
     /**

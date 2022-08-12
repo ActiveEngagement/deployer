@@ -43,6 +43,11 @@ final class Deploy extends Command
 
         $deployer->deploy($bundle->path);
 
+        $this->info('Bundle deployed!');
+        $this->newLine();
+
+        $this->call('deployer:status');
+
         return 0;
     }
 
