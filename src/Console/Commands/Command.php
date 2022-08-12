@@ -35,10 +35,10 @@ abstract class Command extends BaseCommand
 
     /**
      * Warns that the head is broken.
-     * 
+     *
      * Displays a warning on the console that the deployment head is broken, i.e. that the currently deployed bundle
      * could not be retrieved from the `HEAD` file.
-     * 
+     *
      * @return void
      */
     protected function warnHeadBroken(): void

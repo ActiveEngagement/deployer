@@ -5,7 +5,6 @@ namespace Actengage\Deployer;
 use Actengage\Deployer\Console\Commands\Deploy;
 use Actengage\Deployer\Console\Commands\ListBundles;
 use Actengage\Deployer\Console\Commands\Prune;
-use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\Console\Commands\Rollback;
 use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;

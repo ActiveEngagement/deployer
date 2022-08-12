@@ -5,7 +5,6 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundlesAccessor;
-use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\CurrentBundleManager;
 use Illuminate\Support\Collection;
@@ -28,14 +27,12 @@ final class Deploy extends Command
 
     protected $description = 'Deploys an artifact bundle.';
 
-    public function handle
-    (
+    public function handle(
         LoggerRepository $logger,
         BundlesAccessor $bundles,
         CurrentBundleManager $currentBundle,
         BundleDeployer $deployer
-    ): int
-    {
+    ): int {
         $logger->set($this->createLogger());
 
         $bundle = $this->getBundle($bundles->all(), $currentBundle);
@@ -63,31 +60,31 @@ final class Deploy extends Command
             if (is_null($bundle)) {
                 $this->error('No latest bundle found.');
             }
-        } else if ($this->option('current')) {
+        } elseif ($this->option('current')) {
             $bundle = $bundles->first(fn ($b) => $currentBundle->is($b));
 
             if (is_null($bundle)) {
                 $this->warnHeadBroken();
                 $this->error('No current bundle found.');
             }
-        } else if ($number !== 'none') {
+        } elseif ($number !== 'none') {
             $bundle = $bundles->get($number);
 
             if (is_null($bundle)) {
                 $this->error("No bundle with number $number found.");
             }
-        } else if ($version !== 'none') {
+        } elseif ($version !== 'none') {
             $bundle = $bundles->first(fn ($b) => $b->version === $version);
 
             if (is_null($bundle)) {
                 $this->error("No bundle with version $version found.");
             }
-        } else if ($commit !== 'none') {
+        } elseif ($commit !== 'none') {
             $matches = $bundles->filter(fn ($b) => Str::startsWith($b->commit, $commit));
 
             if ($matches->count() === 1) {
                 $bundle = $matches->first();
-            } else if ($matches->count() === 0) {
+            } elseif ($matches->count() === 0) {
                 $this->error("No bundles with commit $commit found.");
             } else {
                 $this->error('Ambiguous commit SHA!');

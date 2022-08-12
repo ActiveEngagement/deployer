@@ -2,14 +2,13 @@
 
 namespace Actengage\Deployer;
 
-use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\Contracts\PathProvider;
 use Illuminate\Support\Collection;
 
 /**
  * Accesses bundles.
- * 
+ *
  * A class that is capable of getting a list of bundles in the bundles directory and their metadata.
  */
 class BundlesAccessor

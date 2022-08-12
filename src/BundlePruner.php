@@ -2,7 +2,6 @@
 
 namespace Actengage\Deployer;
 
-use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
 
 /**
