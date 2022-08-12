@@ -53,7 +53,7 @@ class BundlesAccessor
             $bundles = $bundles->take($limit);
         }
 
-        return $bundles;
+        return $bundles->values();
     }
 
     public function currentName(): ?string
