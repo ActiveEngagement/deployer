@@ -64,6 +64,8 @@ class TestCase extends BaseTestCase
      *     deeply
      *       nested
      *         an_example_bundle
+     *         bundle_two
+     *         without_manifest
      *   app
      *     public
      *       build
@@ -108,6 +110,7 @@ class TestCase extends BaseTestCase
 
         $filesystem->copy($testsDir.'bundles/an_example_bundle', $bundlesDir.'an_example_bundle');
         $filesystem->copy($testsDir.'bundles/bundle_two', $bundlesDir.'bundle_two');
+        $filesystem->copy($testsDir.'bundles/without_manifest', $bundlesDir.'without_manifest');
         file_put_contents($appDir.'random.txt', 'Some random data.');
 
         $testParentDir = $storageDir.'test_parent/';
