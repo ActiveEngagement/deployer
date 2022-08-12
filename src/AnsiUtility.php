@@ -2,6 +2,8 @@
 
 namespace Actengage\Deployer;
 
+use InvalidArgumentException;
+
 /**
  * ANSI codes utility.
  *
@@ -9,6 +11,8 @@ namespace Actengage\Deployer;
  */
 class AnsiUtility
 {
+    public const NO_PARAMS_ERROR = 'No ANSI code params were provided!';
+
     public const RESET = '0';
 
     public const BOLD_ON = '1';
@@ -27,9 +31,17 @@ class AnsiUtility
      *
      * @param  string[]  $params the attributes for which to generate a code.
      * @return string the generated code.
+     *
+     * @throws InvalidArgumentException if no params or all blank params were provided.
      */
     public function code(string ...$params): string
     {
+        $params = array_filter($params);
+
+        if (empty($params)) {
+            throw new InvalidArgumentException(self::NO_PARAMS_ERROR);
+        }
+
         return "\033[".implode(';', $params).'m';
     }
 }

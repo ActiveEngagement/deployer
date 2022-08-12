@@ -12,6 +12,8 @@ use Actengage\Deployer\Contracts\PathProvider;
  */
 class BundleDeployer
 {
+    public const INVALID_RULE_ERROR = 'Nested artifact source paths are not permitted. All artifacts must have their own, top-level file or directory within the bundle.';
+
     /**
      * Creates a new instance.
      *
@@ -75,10 +77,7 @@ class BundleDeployer
         foreach ($rules as $from => $to) {
             $dir = dirname($from);
             if ($dir !== '.') {
-                throw new DeployerException(
-                    'Nested artifact source paths are not permitted. All artifacts must have their own, top-level '.
-                    'file or directory within the bundle.'
-                );
+                throw new DeployerException(self::INVALID_RULE_ERROR);
             }
         }
     }

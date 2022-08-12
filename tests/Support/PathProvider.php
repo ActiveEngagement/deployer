@@ -19,6 +19,6 @@ class PathProvider extends AbstractPathProvider
 
     protected function unresolvedMetaDir(): string
     {
-        return $this->testsDir.'storage/bundles/deeply';
+        return 'deployer_meta';
     }
 }

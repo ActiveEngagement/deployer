@@ -3,10 +3,11 @@
 namespace Tests\Feature;
 
 use Actengage\Deployer\BundleDeployer;
+use Actengage\Deployer\DeployerException;
 use Actengage\Deployer\FilesystemUtility;
 use Tests\TestCase;
 
-class ArtifactDeploymentTest extends TestCase
+class DeploymentTest extends TestCase
 {
     public function test()
     {
@@ -47,5 +48,17 @@ class ArtifactDeploymentTest extends TestCase
 
         // Assert artifact3
         $this->assertEquals("For freedom Christ has set you free; therefore do not submit again to a yoke of slavery.\n", file_get_contents($this->testsDir().'storage/app/unrelated/built_file.txt'));
+    }
+
+    public function test__invalidArtifactRule()
+    {
+        $this->app->when(BundleDeployer::class)
+            ->needs('$artifactRules')
+            ->give([
+                'path/artifact1' => 'public/build',
+            ]);
+        $callback = fn () => app()->make(BundleDeployer::class);
+
+        $this->assertThrows($callback, DeployerException::class, BundleDeployer::INVALID_RULE_ERROR);
     }
 }

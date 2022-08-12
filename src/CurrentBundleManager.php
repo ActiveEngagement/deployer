@@ -47,7 +47,7 @@ class CurrentBundleManager
      */
     public function set(string $name): void
     {
-        file_put_contents($this->headFilePath(), $name);
+        file_put_contents($this->headFilePath(), $name."\n");
     }
 
     /**

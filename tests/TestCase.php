@@ -2,11 +2,7 @@
 
 namespace Tests;
 
-use Actengage\Deployer\ArtifactDeployer;
 use Actengage\Deployer\BundleDeployer;
-use Actengage\Deployer\BundlePruner;
-use Actengage\Deployer\BundlesAccessor;
-use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
 use Actengage\Deployer\ServiceProvider;
@@ -64,17 +60,25 @@ class TestCase extends BaseTestCase
      *     deeply
      *       nested
      *         an_example_bundle
+     *         bundle_two
+     *         without_manifest
      *   app
      *     public
      *       build
      *         should
      *         be.txt
      *         backed_up
+     *     deployer_meta
      *     unrelated
      *       do
      *         not
      *           touch
      *     random.txt
+     *   test_parent
+     *     one.txt
+     *     two
+     *     three
+     *       does_not_count
      */
     private function setUpFilesystem(): void
     {
@@ -100,9 +104,18 @@ class TestCase extends BaseTestCase
         $unrelatedPublicDir = $publicDir.'unrelated/stay/away/';
         mkdir($unrelatedDir, recursive: true);
         mkdir($unrelatedPublicDir, recursive: true);
+        mkdir($appDir.'deployer_meta');
 
         $filesystem->copy($testsDir.'bundles/an_example_bundle', $bundlesDir.'an_example_bundle');
         $filesystem->copy($testsDir.'bundles/bundle_two', $bundlesDir.'bundle_two');
+        $filesystem->copy($testsDir.'bundles/without_manifest', $bundlesDir.'without_manifest');
         file_put_contents($appDir.'random.txt', 'Some random data.');
+
+        $testParentDir = $storageDir.'test_parent/';
+        mkdir($testParentDir);
+        file_put_contents($testParentDir.'one.txt', 'Test');
+        mkdir($testParentDir.'two/');
+        mkdir($testParentDir.'three/');
+        mkdir($testParentDir.'three/does_not_count/');
     }
 }
