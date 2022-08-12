@@ -33,6 +33,12 @@ final class Rollback extends Command
 
         $all = $bundles->all();
         $currentNumber = $all->search(fn ($b) => $currentBundle->is($b));
+
+        if ($currentNumber === false) {
+            $this->error('The deployment head is broken. We are unable to determine the currently deployed bundle. Please fix this by running "php artisan deployer --latest".');
+            return 1;
+        }
+
         $newNumber = $currentNumber + $this->argument('step');
         $bundle = $all->get($newNumber);
 
