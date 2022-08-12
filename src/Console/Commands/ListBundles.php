@@ -43,10 +43,9 @@ final class ListBundles extends Command
             return 0;
         }
 
-        $currentBundleName = $currentBundle->get();
-        $currentBundleNumber = $all->search(fn ($b) => $b->fileName() === $currentBundleName);
+        $currentBundleNumber = $currentBundle->searchIn($all);
 
-        if (!$currentBundleName || $currentBundleNumber === false) {
+        if (is_null($currentBundleNumber)) {
             $this->warnHeadBroken();
         }
 

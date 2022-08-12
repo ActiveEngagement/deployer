@@ -38,7 +38,24 @@ class CurrentBundleManager
             return null;
         }
 
-        return $bundles->first(fn ($b) => $b->fileName() === $name);
+        return $bundles->first($this->predicateFor($name));
+    }
+
+    public function searchIn(Collection $bundles): ?int
+    {
+        $name = $this->get();
+
+        if (! $name) {
+            return null;
+        }
+
+        $result = $bundles->search($this->predicateFor($name));
+        return $result === false ? null : $result;
+    }
+
+    protected function predicateFor(string $name): callable
+    {
+        return fn ($b) => $b->fileName() === $name;
     }
 
     protected function headFilePath(): string

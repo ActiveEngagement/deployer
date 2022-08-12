@@ -6,6 +6,7 @@ use Actengage\Deployer\Console\Commands\Deploy;
 use Actengage\Deployer\Console\Commands\ListBundles;
 use Actengage\Deployer\Console\Commands\Prune;
 use Actengage\Deployer\BundlesAccessor;
+use Actengage\Deployer\Console\Commands\Rollback;
 use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -24,6 +25,7 @@ class ServiceProvider extends BaseServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Deploy::class,
+                Rollback::class,
                 ListBundles::class,
                 Prune::class,
             ]);
