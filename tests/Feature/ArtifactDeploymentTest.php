@@ -15,7 +15,7 @@ class ArtifactDeploymentTest extends TestCase
 
         // FIRST DEPLOYMENT
 
-        $deployer->deploy('an_example_bundle');
+        $deployer->deploy($this->testsDir().'storage/bundles/deeply/nested/an_example_bundle');
 
         // Assert artifact1
         $this->assertDirectoryExists($this->testsDir().'storage/app/public/build');
@@ -34,7 +34,7 @@ class ArtifactDeploymentTest extends TestCase
         // Test the artifact deployment process.
 
         $deployer = app()->get(BundleDeployer::class);
-        $deployer->deploy('bundle_two');
+        $deployer->deploy($this->testsDir().'storage/bundles/deeply/nested/bundle_two');
 
         // Assert artifact1
         $this->assertDirectoryExists($this->testsDir().'storage/app/public/build');
