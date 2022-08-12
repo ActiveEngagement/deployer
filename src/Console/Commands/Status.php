@@ -54,10 +54,9 @@ final class Status extends Command
 
         $this->newLine();
 
-        if ($currentNumber === 0)
-        {
+        if ($currentNumber === 0) {
             $this->line('You are '.$ansi->colored('up to date', AnsiColor::GREEN).' with the latest deployment.');
-        } else if ($currentNumber === 1) {
+        } elseif ($currentNumber === 1) {
             $this->warn('You are 1 deployment behind.');
         } else {
             $this->warn("You are $currentNumber deployments behind.");
