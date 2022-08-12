@@ -28,7 +28,7 @@ final class ListBundles extends Command
     ): int {
         $logger->set($this->createLogger());
 
-        $headers = ['#', 'Bundled At', 'Version', 'Commit'];
+        $headers = ['#', 'Bundled At', 'Initiated By', 'Version', 'Commit'];
         $rows = [];
 
         $all = $bundles->all()->take((int) $this->option('limit'));
@@ -51,6 +51,7 @@ final class ListBundles extends Command
             $rows[] = $this->row([
                 $n,
                 $bundle->bundled_at->format('Y-m-d H:i'),
+                $bundle->initiator,
                 $bundle->version,
                 $bundle->shortCommit(),
             ], $current, $ansi);
