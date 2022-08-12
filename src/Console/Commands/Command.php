@@ -14,6 +14,8 @@ use Psr\Log\LogLevel;
  */
 abstract class Command extends BaseCommand
 {
+    public const HEAD_BROKEN_MSG = 'The deployment head is broken. We are unable to determine the currently deployed bundle. Please fix this by running "php artisan deployer --latest".';
+
     /**
      * Creates a logger.
      *
@@ -43,6 +45,19 @@ abstract class Command extends BaseCommand
      */
     protected function warnHeadBroken(): void
     {
-        $this->warn('The deployment head is broken. We are unable to determine the currently deployed bundle. Please fix this by running "php artisan deployer --latest".');
+        $this->warn(self::HEAD_BROKEN_MSG);
+    }
+
+    /**
+     * Warns in red that the head is broken.
+     *
+     * Displays an error on the console that the deployment head is broken, i.e. that the currently deployed bundle
+     * could not be retrieved from the `HEAD` file.
+     *
+     * @return void
+     */
+    protected function errorHeadBroken(): void
+    {
+        $this->error(self::HEAD_BROKEN_MSG);
     }
 }
