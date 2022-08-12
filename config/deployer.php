@@ -14,6 +14,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Meta Directory
+    |--------------------------------------------------------------------------
+    |
+    | This value is the path (absolute or relative to the deployment root) to
+    | a directory where `deployer` can store meta-files.
+    |
+    | For example, a `HEAD` file will be stored in this directory containing
+    | the "current" bundle.
+    */
+
+    'meta_dir' => env('DEPLOYER_META_DIR', 'storage/deployer'),
+    /*
+    |--------------------------------------------------------------------------
     | Artifact Rules
     |--------------------------------------------------------------------------
     |

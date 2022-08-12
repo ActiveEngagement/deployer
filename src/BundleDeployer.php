@@ -30,6 +30,7 @@ class BundleDeployer
         protected PathProvider $paths,
         protected LoggerRepository $logger,
         protected ArtifactDeployer $artifactDeployer,
+        protected CurrentBundleManager $currentBundle,
         protected array $artifactRules
     ) {
         $this->validateArtifactRules($artifactRules);
@@ -55,6 +56,7 @@ class BundleDeployer
 
             $this->artifactDeployer->deploy($fromFullPath, $to);
         }
+        $this->currentBundle->set(basename($bundlePath));
     }
 
     /**

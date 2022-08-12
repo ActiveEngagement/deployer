@@ -2,14 +2,13 @@
 
 namespace Actengage\Deployer;
 
-use Actengage\Deployer\Contracts\BundlesRepository as BundlesRepositoryInterface;
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\Contracts\PathProvider;
 use Illuminate\Support\Collection;
 
 /**
  * Accesses bundles.
- * 
+ *
  * A class that is capable of getting a list of bundles in the bundles directory and their metadata.
  */
 class BundlesAccessor
@@ -30,10 +29,9 @@ class BundlesAccessor
      *
      * Bundles are sorted in descending order by datetime.
      *
-     * @param  int  $limit if given, specifies the maximum number of bundles to return.
      * @return Collection
      */
-    public function all(int $limit = null): Collection
+    public function all(): Collection
     {
         $bundles = collect();
 
@@ -47,13 +45,7 @@ class BundlesAccessor
             }
         });
 
-        $bundles = $bundles->sortByDesc->bundled_at;
-
-        if (! is_null($limit)) {
-            $bundles = $bundles->take($limit);
-        }
-
-        return $bundles->values();
+        return $bundles->sortByDesc->bundled_at->values();
     }
 
     /**

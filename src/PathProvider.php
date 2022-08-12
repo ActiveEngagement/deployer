@@ -8,4 +8,9 @@ class PathProvider extends AbstractPathProvider
     {
         return config('deployer.bundles_dir');
     }
+
+    protected function unresolvedMetaDir(): string
+    {
+        return config('deployer.meta_dir');
+    }
 }

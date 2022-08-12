@@ -11,5 +11,7 @@ interface PathProvider
 {
     public function bundlesDir(): string;
 
+    public function metaDir(): string;
+
     public function deploymentDir(): string;
 }

@@ -21,6 +21,11 @@ abstract class AbstractPathProvider implements PathProvider
         return $this->resolvePath($this->unresolvedBundlesDir());
     }
 
+    public function metaDir(): string
+    {
+        return $this->resolvePath($this->unresolvedMetaDir());
+    }
+
     public function deploymentDir(): string
     {
         return $this->deploymentDir;
@@ -34,6 +39,16 @@ abstract class AbstractPathProvider implements PathProvider
      * @return string
      */
     abstract protected function unresolvedBundlesDir(): string;
+
+    /**
+     * Gets the unresolved meta dir.
+     *
+     * Should get the raw, unresolved path to the directory where deployer can store metadata (e.g. the current bundle).
+     * It will be resolved from the deployment root.
+     *
+     * @return string
+     */
+    abstract protected function unresolvedMetaDir(): string;
 
     /**
      * Resolves the given path.

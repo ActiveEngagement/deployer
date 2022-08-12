@@ -16,4 +16,9 @@ class PathProvider extends AbstractPathProvider
     {
         return $this->testsDir.'storage/bundles/deeply/nested';
     }
+
+    protected function unresolvedMetaDir(): string
+    {
+        return $this->testsDir.'storage/bundles/deeply';
+    }
 }
