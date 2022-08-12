@@ -41,7 +41,7 @@ final class ListBundles extends Command
 
         $currentBundleNumber = $all->search(fn ($b) => $currentBundle->is($b));
 
-        if (is_null($currentBundleNumber)) {
+        if ($currentBundleNumber === false) {
             $this->warnHeadBroken();
         }
 
