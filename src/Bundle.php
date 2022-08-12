@@ -4,6 +4,7 @@ namespace Actengage\Deployer;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 /**
  * Represents a bundle.
@@ -12,6 +13,8 @@ use Illuminate\Support\Str;
  */
 final class Bundle
 {
+    public const MISSING_REQUIRED_ERROR = 'A required argument is missing!';
+
     /**
      * Creates a new instance of Bundle.
      *
@@ -80,6 +83,10 @@ final class Bundle
     {
         $array = collect(json_decode($json, true));
 
+        if (! $array->has('bundled_at')) {
+            throw new InvalidArgumentException(self::MISSING_REQUIRED_ERROR);
+        }
+
         return new self(
             path: $path,
             commit: $array->get('commit'),
@@ -87,9 +94,25 @@ final class Bundle
             env: $array->get('env'),
             version: $array->get('version'),
             bundled_at: Carbon::createFromTimestamp($array->get('bundled_at')),
-            committed_at: Carbon::createFromTimestamp($array->get('committed_at')),
+            committed_at: self::tryParseTimestamp($array->get('committed_at')),
             git_ref: $array->get('git_ref'),
             ci_job: $array->get('ci_job'),
         );
+    }
+
+    /**
+     * Tries to parse a timestamp.
+     * 
+     * Attempts to parse the given string into a timestamp. If the string is falsy, then `null` is returned.
+     * 
+     * @return ?Carbon
+     */
+    private static function tryParseTimestamp(?string $input): ?Carbon
+    {
+        if (! $input) {
+            return null;
+        }
+
+        return Carbon::createFromTimestamp($input);
     }
 }
