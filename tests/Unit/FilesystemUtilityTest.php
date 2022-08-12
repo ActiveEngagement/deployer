@@ -82,11 +82,11 @@ class FilesystemUtilityTest extends TestCase
         $expected = [
             $this->testsDir().'storage/test_parent/one.txt',
             $this->testsDir().'storage/test_parent/three',
-            $this->testsDir().'storage/test_parent/two'
+            $this->testsDir().'storage/test_parent/two',
         ];
 
         $actual = [];
-        $this->makeFilesystem()->eachChild($this->testsDir().'storage/test_parent', function($path) use (&$actual) {
+        $this->makeFilesystem()->eachChild($this->testsDir().'storage/test_parent', function ($path) use (&$actual) {
             $actual[] = $path;
         });
 

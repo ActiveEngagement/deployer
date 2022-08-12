@@ -49,7 +49,7 @@ class AnsiUtilityTest extends TestCase
     public function test__bold()
     {
         $expected = "\033[1mhi there\033[22m";
-        $actual = $this->makeAnsi()->bold("hi there");
+        $actual = $this->makeAnsi()->bold('hi there');
 
         $this->assertEquals($expected, $actual);
     }

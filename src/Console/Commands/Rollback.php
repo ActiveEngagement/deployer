@@ -36,6 +36,7 @@ final class Rollback extends Command
 
         if ($currentNumber === false) {
             $this->error('The deployment head is broken. We are unable to determine the currently deployed bundle. Please fix this by running "php artisan deployer --latest".');
+
             return 1;
         }
 

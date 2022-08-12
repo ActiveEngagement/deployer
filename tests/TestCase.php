@@ -2,11 +2,7 @@
 
 namespace Tests;
 
-use Actengage\Deployer\ArtifactDeployer;
 use Actengage\Deployer\BundleDeployer;
-use Actengage\Deployer\BundlePruner;
-use Actengage\Deployer\BundlesAccessor;
-use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
 use Actengage\Deployer\ServiceProvider;

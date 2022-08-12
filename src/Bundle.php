@@ -102,9 +102,9 @@ final class Bundle
 
     /**
      * Tries to parse a timestamp.
-     * 
+     *
      * Attempts to parse the given string into a timestamp. If the string is falsy, then `null` is returned.
-     * 
+     *
      * @return ?Carbon
      */
     private static function tryParseTimestamp(?string $input): ?Carbon

@@ -31,6 +31,7 @@ class AnsiUtility
      *
      * @param  string[]  $params the attributes for which to generate a code.
      * @return string the generated code.
+     *
      * @throws InvalidArgumentException if no params or all blank params were provided.
      */
     public function code(string ...$params): string

@@ -19,7 +19,7 @@ class BundleTest extends TestCase
             'bundled_at' => 1660327468,
             'committed_at' => 1660327484,
             'git_ref' => 'master',
-            'ci_job' => 'build'
+            'ci_job' => 'build',
         ]));
 
         $this->assertEquals('/some/random/path', $bundle->path);
@@ -58,7 +58,7 @@ class BundleTest extends TestCase
     {
         $bundle = Bundle::fromJson('/some/random/path', json_encode([
             'commit' => '123456789',
-            'bundled_at' => 1660327468
+            'bundled_at' => 1660327468,
         ]));
 
         $this->assertEquals('1234567', $bundle->shortCommit());
@@ -68,7 +68,7 @@ class BundleTest extends TestCase
     {
         $bundle = Bundle::fromJson('/some/random/path', json_encode([
             'commit' => '123',
-            'bundled_at' => 1660327468
+            'bundled_at' => 1660327468,
         ]));
 
         $this->assertEquals('123', $bundle->shortCommit());
