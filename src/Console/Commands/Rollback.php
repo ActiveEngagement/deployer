@@ -37,7 +37,7 @@ final class Rollback extends Command
         $logger->set($this->createLogger());
 
         $all = $bundles->all();
-        $currentNumber = $currentBundle->searchIn($all);
+        $currentNumber = $all->search(fn ($b) => $currentBundle->is($b));
         $newNumber = $currentNumber + $this->argument('step');
         $bundle = $all->get($newNumber);
 

@@ -64,7 +64,7 @@ final class Deploy extends Command
                 $this->error('No latest bundle found.');
             }
         } else if ($this->option('current')) {
-            $bundle = $currentBundle->findIn($bundles);
+            $bundle = $bundles->first(fn ($b) => $currentBundle->is($b));
 
             if (is_null($bundle)) {
                 $this->warnHeadBroken();
