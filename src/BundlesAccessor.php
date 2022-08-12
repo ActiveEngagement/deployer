@@ -30,10 +30,9 @@ class BundlesAccessor
      *
      * Bundles are sorted in descending order by datetime.
      *
-     * @param  int  $limit if given, specifies the maximum number of bundles to return.
      * @return Collection
      */
-    public function all(int $limit = null): Collection
+    public function all(): Collection
     {
         $bundles = collect();
 
@@ -47,45 +46,7 @@ class BundlesAccessor
             }
         });
 
-        $bundles = $bundles->sortByDesc->bundled_at;
-
-        if (! is_null($limit)) {
-            $bundles = $bundles->take($limit);
-        }
-
-        return $bundles->values();
-    }
-
-    public function currentName(): ?string
-    {
-        $headFilePath = $this->headFilePath();
-
-        if (!file_exists($headFilePath)) {
-            return null;
-        }
-
-        return trim(file_get_contents($headFilePath));
-    }
-
-    public function current(): ?Bundle
-    {
-        $name = $this->currentName();
-
-        if (! $name) {
-            return null;
-        }
-
-        return $this->all()->first(fn ($b) => $b->fileName() === $name);
-    }
-
-    public function setCurrent(string $name): void
-    {
-        file_put_contents($this->headFilePath(), $name);
-    }
-
-    protected function headFilePath(): string
-    {
-        return $this->filesystem->joinPaths($this->paths->metaDir(), 'HEAD');
+        return $bundles->sortByDesc->bundled_at->values();
     }
 
     /**

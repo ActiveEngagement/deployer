@@ -7,6 +7,7 @@ use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\Contracts\BundlesRepository;
 use Actengage\Deployer\Contracts\LoggerRepository;
+use Actengage\Deployer\CurrentBundleManager;
 use Illuminate\Support\Collection;
 
 /**
@@ -21,14 +22,20 @@ final class ListBundles extends Command
 
     protected $description = 'Lists all deployable artifact bundles.';
 
-    public function handle(LoggerRepository $logger, BundlesAccessor $bundles, AnsiUtility $ansi): int
+    public function handle
+    (
+        LoggerRepository $logger,
+        BundlesAccessor $bundles,
+        CurrentBundleManager $currentBundle,
+        AnsiUtility $ansi
+    ): int
     {
         $logger->set($this->createLogger());
 
         $headers = ['#', 'Bundled At', 'Version', 'Commit'];
         $rows = [];
 
-        $all = $bundles->all(limit: (int) $this->option('limit'));
+        $all = $bundles->all()->take((int) $this->option('limit'));
 
         if ($all->isEmpty()) {
             $this->info('No bundles found!');
@@ -36,7 +43,7 @@ final class ListBundles extends Command
             return 0;
         }
 
-        $currentBundleName = $bundles->currentName();
+        $currentBundleName = $currentBundle->get();
         $currentBundleNumber = $all->search(fn ($b) => $b->fileName() === $currentBundleName);
 
         if (!$currentBundleName || $currentBundleNumber === false) {

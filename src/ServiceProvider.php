@@ -31,6 +31,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->app->singleton(FilesystemUtility::class);
         $this->app->singleton(BundlesAccessor::class);
+        $this->app->singleton(CurrentBundleManager::class);
         $this->app->singleton(ArtifactDeployer::class);
         $this->app->singleton(BundleDeployer::class);
         $this->app->singleton(BundlePruner::class);
