@@ -6,7 +6,7 @@ use Actengage\Deployer\AnsiUtility;
 use InvalidArgumentException;
 use Tests\TestCase;
 
-class AnsiUtilityTests extends TestCase
+class AnsiUtilityTest extends TestCase
 {
     public function test__code__withOneParam()
     {
