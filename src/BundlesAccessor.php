@@ -56,6 +56,28 @@ class BundlesAccessor
         return $bundles;
     }
 
+    public function currentName(): ?string
+    {
+        $headFilePath = $this->filesystem->joinPaths($this->paths->metaDir(), 'HEAD');
+
+        if (!file_exists($headFilePath)) {
+            return null;
+        }
+
+        return trim(file_get_contents($headFilePath));
+    }
+
+    public function current(): ?Bundle
+    {
+        $name = $this->currentName();
+
+        if (! $name) {
+            return null;
+        }
+
+        return $this->all()->first(fn ($b) => $b->fileName() === $name);
+    }
+
     /**
      * Gets bundle metadata for the given bundle.
      *
