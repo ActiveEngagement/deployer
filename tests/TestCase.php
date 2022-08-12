@@ -72,6 +72,7 @@ class TestCase extends BaseTestCase
      *         should
      *         be.txt
      *         backed_up
+     *     deployer_meta
      *     unrelated
      *       do
      *         not
@@ -107,6 +108,7 @@ class TestCase extends BaseTestCase
         $unrelatedPublicDir = $publicDir.'unrelated/stay/away/';
         mkdir($unrelatedDir, recursive: true);
         mkdir($unrelatedPublicDir, recursive: true);
+        mkdir($appDir.'deployer_meta');
 
         $filesystem->copy($testsDir.'bundles/an_example_bundle', $bundlesDir.'an_example_bundle');
         $filesystem->copy($testsDir.'bundles/bundle_two', $bundlesDir.'bundle_two');

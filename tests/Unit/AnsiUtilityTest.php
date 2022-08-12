@@ -46,6 +46,14 @@ class AnsiUtilityTest extends TestCase
         $this->assertThrows($callback, InvalidArgumentException::class, AnsiUtility::NO_PARAMS_ERROR);
     }
 
+    public function test__bold()
+    {
+        $expected = "\033[1mhi there\033[22m";
+        $actual = $this->makeAnsi()->bold("hi there");
+
+        $this->assertEquals($expected, $actual);
+    }
+
     private function makeAnsi(): AnsiUtility
     {
         return new AnsiUtility;
