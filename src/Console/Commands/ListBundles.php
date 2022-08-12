@@ -37,15 +37,9 @@ final class ListBundles extends Command
         }
 
         $currentBundleName = $bundles->currentName();
-        $currentBundleNumber = null;
+        $currentBundleNumber = $all->search(fn ($b) => $b->fileName() === $currentBundleName);
 
-        $all->each(function (Bundle $bundle, int $n) use ($currentBundleName, &$currentBundleNumber) {
-            if ($bundle->fileName() === $currentBundleName) {
-                $currentBundleNumber = $n;
-            }
-        });
-
-        if (!$currentBundleName || !$currentBundleNumber) {
+        if (!$currentBundleName || $currentBundleNumber === false) {
             $this->warnHeadBroken();
         }
 
