@@ -10,16 +10,15 @@ use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\CurrentBundleManager;
 
 /**
- * A command that lists bundles.
+ * A command that shows status
  *
- * A custom Artisan command that traverses the bundles directory for available, deployable artifact bundles and displays
- * them to the user.
+ * A custom Artisan command that displays information about the currently deployed bundle to the user.
  */
 final class Status extends Command
 {
     protected $signature = 'deployer:status {--limit=10} {--verbosity=1}';
 
-    protected $description = 'Lists all deployable artifact bundles.';
+    protected $description = 'Displays information about the current deployment.';
 
     public function handle(
         LoggerRepository $logger,
