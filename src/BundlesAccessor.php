@@ -58,7 +58,7 @@ class BundlesAccessor
 
     public function currentName(): ?string
     {
-        $headFilePath = $this->filesystem->joinPaths($this->paths->metaDir(), 'HEAD');
+        $headFilePath = $this->headFilePath();
 
         if (!file_exists($headFilePath)) {
             return null;
@@ -76,6 +76,16 @@ class BundlesAccessor
         }
 
         return $this->all()->first(fn ($b) => $b->fileName() === $name);
+    }
+
+    public function setCurrent(string $name): void
+    {
+        file_put_contents($this->headFilePath(), $name);
+    }
+
+    protected function headFilePath(): string
+    {
+        return $this->filesystem->joinPaths($this->paths->metaDir(), 'HEAD');
     }
 
     /**
