@@ -9,7 +9,7 @@ use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Actengage\Deployer\FilesystemUtility;
-use Actengage\Deployer\LoggerRepository;
+use Actengage\Deployer\ServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReflectionClass;
 use Tests\Support\PathProvider;
@@ -33,16 +33,16 @@ class TestCase extends BaseTestCase
         return dirname($path).'/';
     }
 
+    protected function getPackageProviders($app)
+    {
+        return [
+            ServiceProvider::class,
+        ];
+    }
+
     private function registerBindings(): void
     {
-        $this->app->singleton(FilesystemUtility::class);
-        $this->app->singleton(ArtifactDeployer::class);
-        $this->app->singleton(BundleDeployer::class);
-        $this->app->singleton(BundlePruner::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
-        $this->app->singleton(BundlesAccessor::class);
-        $this->app->singleton(CurrentBundleManager::class);
-        $this->app->singleton(LoggerRepositoryInterface::class, LoggerRepository::class);
 
         $this->app->when(PathProvider::class)
             ->needs('$testsDir')
