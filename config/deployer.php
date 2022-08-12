@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This value is the path (absolute or relative to the deployment root) to
-    | the directory where the original, compressed .tar.gz bundles are stored.
+    | the directory where the original bundles are stored.
     */
 
     'bundles_dir' => env('DEPLOYER_BUNDLES_DIR', 'storage/deployer/artifact_bundles'),
