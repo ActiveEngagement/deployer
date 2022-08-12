@@ -6,7 +6,7 @@ use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\FilesystemUtility;
 use Tests\TestCase;
 
-class ArtifactDeploymentTest extends TestCase
+class DeploymentTest extends TestCase
 {
     public function test()
     {
