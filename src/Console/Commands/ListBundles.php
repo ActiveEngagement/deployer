@@ -63,9 +63,4 @@ final class ListBundles extends Command
     {
         return array_map(fn ($c) => $current ? $ansi->bold($c) : $c, $columns);
     }
-
-    private function warnHeadBroken(): void
-    {
-        $this->warn('The deployment head is broken. We are unable to determine the currently deployed bundle. Please fix this by running "php artisan deployer --latest".');
-    }
 }

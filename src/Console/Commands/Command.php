@@ -32,4 +32,9 @@ abstract class Command extends BaseCommand
 
         return new CommandLogger($this, $logLevel);
     }
+
+    protected function warnHeadBroken(): void
+    {
+        $this->warn('The deployment head is broken. We are unable to determine the currently deployed bundle. Please fix this by running "php artisan deployer --latest".');
+    }
 }

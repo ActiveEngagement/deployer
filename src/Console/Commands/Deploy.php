@@ -16,7 +16,13 @@ use Illuminate\Support\Str;
  */
 final class Deploy extends Command
 {
-    protected $signature = 'deployer {--L|latest} {--c|commit=none} {--r|bundle-version=none} {--N|number=none} {--verbosity=1}';
+    protected $signature = 'deployer
+                            {--L|latest}
+                            {--C|current}
+                            {--c|commit=none}
+                            {--r|bundle-version=none}
+                            {--N|number=none}
+                            {--verbosity=1}';
 
     protected $description = 'Safely deploys artifacts from the given bundle.';
 
@@ -48,6 +54,13 @@ final class Deploy extends Command
 
             if (is_null($bundle)) {
                 $this->error('No latest bundle found.');
+            }
+        } else if ($this->option('current')) {
+            $bundle = $bundles->current();
+
+            if (is_null($bundle)) {
+                $this->warnHeadBroken();
+                $this->error('No current bundle found.');
             }
         } else if ($number !== 'none') {
             $bundle = $bundles->all()->get($number);
