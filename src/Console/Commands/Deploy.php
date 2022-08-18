@@ -22,8 +22,7 @@ final class Deploy extends Command
                             {--C|current}
                             {--c|commit=none}
                             {--r|bundle-version=none}
-                            {--N|number=none}
-                            {--verbosity=1}';
+                            {--N|number=none}';
 
     protected $description = 'Deploys an artifact bundle.';
 

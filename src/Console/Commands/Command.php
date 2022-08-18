@@ -25,14 +25,39 @@ abstract class Command extends BaseCommand
      */
     protected function createLogger(): LoggerInterface
     {
-        $logLevel = match ((int) $this->option('verbosity')) {
+        $logLevel = match ((int) $this->getVerbosity()) {
             0 => LogLevel::ERROR,
             1 => LogLevel::NOTICE,
             2 => LogLevel::INFO,
-            default => LogLevel::DEBUG,
+            3 => LogLevel::DEBUG,
         };
 
         return new CommandLogger($this, $logLevel);
+    }
+
+    /**
+     * Gets the command verbosity.
+     *
+     * Retrieves an integer representation of verbosity, from 0 to 3.
+     *
+     * Currently, this is done by using `$this->getOutput()` to determine whether `-v`, `-vv`, or `-vvv` was passed to
+     * the command.
+     *
+     * @return int an integer representing the requested verbosity, from 0 to 3.
+     */
+    protected function getVerbosity(): int
+    {
+        $output = $this->getOutput();
+
+        if ($output->isDebug()) {
+            return 3;
+        } elseif ($output->isVeryVerbose()) {
+            return 2;
+        } elseif ($output->isVerbose()) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 
     /**
