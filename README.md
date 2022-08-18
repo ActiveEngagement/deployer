@@ -166,6 +166,8 @@ php artisan deployer:prune --keep 5
 
 After a while, your bundles directory may become bloated with old artifact bundles. This command may be invoked to automatically delete all but the given number of most recent ones.
 
+By default, invalid bundles (that is, bundle with missing/malformed manifests) will be ignored. To remove them, you may invoke `deployer:prune` with the `--include-invalid` flag.
+
 ## Bundle Structure
 
 An artifact bundle in the context of the `deployer` package is simply a directory. That directory contains one or more "artifacts" (which may themselves be either directories or plain files) and a `manifest.json` file.
