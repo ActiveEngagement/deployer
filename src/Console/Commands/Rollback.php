@@ -18,8 +18,7 @@ use Actengage\Deployer\CurrentBundleManager;
 final class Rollback extends Command
 {
     protected $signature = 'deployer:rollback
-                            {step=1}
-                            {--verbosity=1}';
+                            {step=1}';
 
     protected $description = 'Deploys an artifact bundle a number of steps before the current one.';
 

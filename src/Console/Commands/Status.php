@@ -16,7 +16,7 @@ use Actengage\Deployer\CurrentBundleManager;
  */
 final class Status extends Command
 {
-    protected $signature = 'deployer:status {--limit=10} {--verbosity=1}';
+    protected $signature = 'deployer:status {--limit=10}';
 
     protected $description = 'Displays information about the current deployment.';
 

@@ -25,14 +25,29 @@ abstract class Command extends BaseCommand
      */
     protected function createLogger(): LoggerInterface
     {
-        $logLevel = match ((int) $this->option('verbosity')) {
+        $logLevel = match ((int) $this->getVerbosity()) {
             0 => LogLevel::ERROR,
             1 => LogLevel::NOTICE,
             2 => LogLevel::INFO,
-            default => LogLevel::DEBUG,
+            3 => LogLevel::DEBUG,
         };
 
         return new CommandLogger($this, $logLevel);
+    }
+
+    protected function getVerbosity(): int
+    {
+        $output = $this->getOutput();
+
+        if ($output->isDebug()) {
+            return 3;
+        } elseif ($output->isVeryVerbose()) {
+            return 2;
+        } elseif ($output->isVerbose()) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
 
     /**
