@@ -13,7 +13,8 @@ use Actengage\Deployer\Contracts\LoggerRepository;
 final class Prune extends Command
 {
     protected $signature = 'deployer:prune
-                            {--keep=5 : The number of most recent bundles to keep.}';
+                            {--keep=5 : The number of most recent bundles to keep.}
+                            {--include-invalid : Specifies that bundles with missing/malformed manifests should be removed.}';
 
     protected $description = 'Prunes old bundles from the bundles directory.';
 
@@ -21,7 +22,7 @@ final class Prune extends Command
     {
         $logger->set($this->createLogger());
 
-        $deleted = $pruner->prune((int) $this->option('keep'));
+        $deleted = $pruner->prune((int) $this->option('keep'), $this->option('include-invalid'));
 
         if ($deleted > 0) {
             $this->info("Removed $deleted bundles.");

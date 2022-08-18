@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class BundlePruningTest extends TestCase
 {
-    public function test__keepNone()
+    public function test__onlyValid__keepNone()
     {
         $pruner = $this->makePruner();
 
@@ -19,7 +19,7 @@ class BundlePruningTest extends TestCase
         $this->assertTrue(file_exists($this->bundlesDir().'without_manifest'));
     }
 
-    public function test__keepOne()
+    public function test__onlyValid__keepOne()
     {
         $pruner = $this->makePruner();
 
@@ -28,6 +28,17 @@ class BundlePruningTest extends TestCase
         $this->assertEquals(1, $deleted);
         $this->assertEquals(2, $this->filesystem()->countDirChildren($this->bundlesDir()));
         $this->assertTrue(file_exists($this->bundlesDir().'without_manifest'));
+        $this->assertTrue(file_exists($this->bundlesDir().'bundle_two'));
+    }
+
+    public function test__includeInvalid__keepOne()
+    {
+        $pruner = $this->makePruner();
+
+        $deleted = $pruner->prune(1, true);
+
+        $this->assertEquals(2, $deleted);
+        $this->assertEquals(1, $this->filesystem()->countDirChildren($this->bundlesDir()));
         $this->assertTrue(file_exists($this->bundlesDir().'bundle_two'));
     }
 
