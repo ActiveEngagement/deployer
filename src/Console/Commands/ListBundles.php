@@ -63,6 +63,6 @@ final class ListBundles extends Command
 
     private function row(array $columns, bool $current, AnsiUtility $ansi): array
     {
-        return array_map(fn ($c) => $current ? $ansi->bold($c) : $c, $columns);
+        return array_map(fn ($c) => $current ? $ansi->bold($c ?? '') : $c, $columns);
     }
 }
