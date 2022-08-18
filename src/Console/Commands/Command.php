@@ -51,7 +51,10 @@ abstract class Command extends BaseCommand
             3 => LogLevel::DEBUG,
         };
 
-        return new CommandLogger($this, $logLevel);
+        return app()->make(CommandLogger::class, [
+            'cmd' => $this,
+            'level' => $logLevel
+        ]);
     }
 
     /**
