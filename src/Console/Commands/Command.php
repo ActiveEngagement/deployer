@@ -35,6 +35,16 @@ abstract class Command extends BaseCommand
         return new CommandLogger($this, $logLevel);
     }
 
+    /**
+     * Gets the command verbosity.
+     *
+     * Retrieves an integer representation of verbosity, from 0 to 3.
+     *
+     * Currently, this is done by using `$this->getOutput()` to determine whether `-v`, `-vv`, or `-vvv` was passed to
+     * the command.
+     *
+     * @return int an integer representing the requested verbosity, from 0 to 3.
+     */
     protected function getVerbosity(): int
     {
         $output = $this->getOutput();
