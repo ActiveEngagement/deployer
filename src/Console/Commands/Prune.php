@@ -3,6 +3,7 @@
 namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\BundlePruner;
+use Actengage\Deployer\Contracts\AnsiFilter;
 use Actengage\Deployer\Contracts\LoggerRepository;
 
 /**
@@ -18,9 +19,8 @@ final class Prune extends Command
 
     protected $description = 'Prunes old bundles from the bundles directory.';
 
-    public function handle(LoggerRepository $logger, BundlePruner $pruner): int
-    {
-        $logger->set($this->createLogger());
+    public function handle(BundlePruner $pruner): int {
+        $this->setup();
 
         $deleted = $pruner->prune((int) $this->option('keep'), $this->option('include-invalid'));
 

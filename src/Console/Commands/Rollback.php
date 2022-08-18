@@ -5,6 +5,7 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundlesAccessor;
+use Actengage\Deployer\Contracts\AnsiFilter;
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\CurrentBundleManager;
 
@@ -23,12 +24,11 @@ final class Rollback extends Command
     protected $description = 'Deploys an artifact bundle a number of steps before the current one.';
 
     public function handle(
-        LoggerRepository $logger,
         BundlesAccessor $bundles,
         CurrentBundleManager $currentBundle,
-        BundleDeployer $deployer
+        BundleDeployer $deployer,
     ): int {
-        $logger->set($this->createLogger());
+        $this->setup();
 
         $all = $bundles->all();
         $currentNumber = $all->search(fn ($b) => $currentBundle->is($b));

@@ -5,6 +5,7 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\AnsiUtility;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundlesAccessor;
+use Actengage\Deployer\Contracts\AnsiFilter;
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\CurrentBundleManager;
 
@@ -22,12 +23,11 @@ final class ListBundles extends Command
     protected $description = 'Lists all deployable artifact bundles.';
 
     public function handle(
-        LoggerRepository $logger,
         BundlesAccessor $bundles,
         CurrentBundleManager $currentBundle,
-        AnsiUtility $ansi
+        AnsiUtility $ansi,
     ): int {
-        $logger->set($this->createLogger());
+        $this->setup();
 
         $headers = ['#', 'Bundled At', 'Initiated By', 'Version', 'Commit'];
         $rows = [];
