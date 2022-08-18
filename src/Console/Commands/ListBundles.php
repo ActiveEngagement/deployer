@@ -16,7 +16,8 @@ use Actengage\Deployer\CurrentBundleManager;
  */
 final class ListBundles extends Command
 {
-    protected $signature = 'deployer:list {--limit=10}';
+    protected $signature = 'deployer:list
+                            {--limit=10 : The maximum number of bundles to show.}';
 
     protected $description = 'Lists all deployable artifact bundles.';
 

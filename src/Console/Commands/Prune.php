@@ -12,7 +12,8 @@ use Actengage\Deployer\Contracts\LoggerRepository;
  */
 final class Prune extends Command
 {
-    protected $signature = 'deployer:prune {--keep=5}';
+    protected $signature = 'deployer:prune
+                            {--keep=5 : The number of most recent bundles to keep.}';
 
     protected $description = 'Prunes old bundles from the bundles directory.';
 
