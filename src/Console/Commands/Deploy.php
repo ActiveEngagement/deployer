@@ -18,11 +18,11 @@ use Illuminate\Support\Str;
 final class Deploy extends Command
 {
     protected $signature = 'deployer
-                            {--L|latest}
-                            {--C|current}
-                            {--c|commit=none}
-                            {--r|bundle-version=none}
-                            {--N|number=none}';
+                            {--L|latest : Deploys the latest available artifact bundle.}
+                            {--C|current : Redeploys the current artifact bundle.}
+                            {--c|commit= : Deploys the artifact bundle with the given Git commit SHA.}
+                            {--r|bundle-version= : Deploys the artifact bundle with the given version string.}
+                            {--N|number= : Deploys the artifact bundle with the given number (see deployer:list).}';
 
     protected $description = 'Deploys an artifact bundle.';
 
@@ -71,19 +71,19 @@ final class Deploy extends Command
                 $this->warnHeadBroken();
                 $this->error('No current bundle found.');
             }
-        } elseif ($number !== 'none') {
+        } elseif ($number) {
             $bundle = $bundles->get($number);
 
             if (is_null($bundle)) {
                 $this->error("No bundle with number $number found.");
             }
-        } elseif ($version !== 'none') {
+        } elseif ($version) {
             $bundle = $bundles->first(fn ($b) => $b->version === $version);
 
             if (is_null($bundle)) {
                 $this->error("No bundle with version $version found.");
             }
-        } elseif ($commit !== 'none') {
+        } elseif ($commit) {
             $matches = $bundles->filter(fn ($b) => Str::startsWith($b->commit, $commit));
 
             if ($matches->count() === 1) {
