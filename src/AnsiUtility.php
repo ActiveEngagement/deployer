@@ -59,15 +59,15 @@ class AnsiUtility
 
     /**
      * Codes the input.
-     * 
+     *
      * Creates a "coded" version of the given string by prepending the given "on" code, and appending the given "off"
      * code.
-     * 
+     *
      * If ANSI output is disabled, the plain text is returned.
-     * 
-     * @param string $on the ANSI code that enables the ANSI effect.
-     * @param string $plain the input to "code."
-     * @param string $off the ANSI code that disables the ANSI effect.
+     *
+     * @param  string  $on the ANSI code that enables the ANSI effect.
+     * @param  string  $plain the input to "code."
+     * @param  string  $off the ANSI code that disables the ANSI effect.
      * @return string
      */
     protected function coded(string $on, string $plain, string $off): string
@@ -77,9 +77,9 @@ class AnsiUtility
 
     /**
      * Filters output.
-     * 
+     *
      * Returns the given plain output, if ANSI output is disabled, or the ANSI output if not.
-     * 
+     *
      * @return string
      */
     protected function filtered(string $plain, string $ansi): string

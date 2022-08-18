@@ -28,7 +28,7 @@ final class Bundle
      * @param  ?string  $version the release version for which this bundle was built. This likely will only apply to
      * production builds.
      * @param  Carbon  $bundled_at the datetime at which this bundle was built.
-     * @param  ?Collection $extra an array of extra, non-standard metadata about the bundle.
+     * @param  ?Collection  $extra an array of extra, non-standard metadata about the bundle.
      */
     public function __construct(
         public string $path,

@@ -66,16 +66,16 @@ class AnsiUtilityTest extends TestCase
 
     public function test__bold__filtered()
     {
-        $expected = "original input";
-        $actual = $this->makeAnsi(false)->bold("original input");
+        $expected = 'original input';
+        $actual = $this->makeAnsi(false)->bold('original input');
 
         $this->assertEquals($expected, $actual);
     }
 
     public function test__colored__filtered()
     {
-        $expected = "original input";
-        $actual = $this->makeAnsi(false)->colored("original input", AnsiColor::RED);
+        $expected = 'original input';
+        $actual = $this->makeAnsi(false)->colored('original input', AnsiColor::RED);
 
         $this->assertEquals($expected, $actual);
     }

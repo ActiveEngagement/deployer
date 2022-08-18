@@ -6,7 +6,7 @@ use Actengage\Deployer\Contracts\AnsiFilter as AnsiFilterInterface;
 
 /**
  * Filters ANSI usage.
- * 
+ *
  * An implementatino of {@see Actengage\Contracts\AnsiFilter} that simply manages whether ANSI is allowed.
  */
 class AnsiFilter implements AnsiFilterInterface

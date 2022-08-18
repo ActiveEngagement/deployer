@@ -27,8 +27,7 @@ class CommandLogger extends AbstractLogger
         protected AnsiUtility $ansi,
         protected Command $cmd,
         protected string $level
-    )
-    {
+    ) {
     }
 
     public function log($level, string|Stringable $message, array $context = []): void

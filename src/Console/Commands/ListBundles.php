@@ -5,8 +5,6 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\AnsiUtility;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundlesAccessor;
-use Actengage\Deployer\Contracts\AnsiFilter;
-use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\CurrentBundleManager;
 
 /**

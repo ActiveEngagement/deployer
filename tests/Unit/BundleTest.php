@@ -21,7 +21,7 @@ class BundleTest extends TestCase
                 'committed_at' => 1660327484,
                 'git_ref' => 'master',
                 'ci_job' => 'build',
-            ]
+            ],
         ]));
 
         $this->assertEquals('/some/random/path', $bundle->path);

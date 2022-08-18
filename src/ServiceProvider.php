@@ -8,7 +8,6 @@ use Actengage\Deployer\Console\Commands\Prune;
 use Actengage\Deployer\Console\Commands\Rollback;
 use Actengage\Deployer\Console\Commands\Status;
 use Actengage\Deployer\Contracts\AnsiFilter as AnsiFilterInterface;
-use Actengage\Deployer\AnsiFilter;
 use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;

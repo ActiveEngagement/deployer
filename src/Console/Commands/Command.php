@@ -20,13 +20,13 @@ abstract class Command extends BaseCommand
 
     /**
      * Sets up dependencies.
-     * 
+     *
      * Sets up dependencies common to all commands in this package.
-     * 
+     *
      * In particular, it:
      *   - sets up a logger based on the requested verbosity level, and
      *   - filters ANSI output based on the `--ansi` / `--no-ansi` flags.
-     * 
+     *
      * @return void
      */
     protected function setup(): void
@@ -53,15 +53,15 @@ abstract class Command extends BaseCommand
 
         return app()->make(CommandLogger::class, [
             'cmd' => $this,
-            'level' => $logLevel
+            'level' => $logLevel,
         ]);
     }
 
     /**
      * Gets whether ANSI is allowed.
-     * 
+     *
      * Determines whether ANSI output is allowed for this command by checking for the presense of the `--no-ansi` flag.
-     * 
+     *
      * @return bool
      */
     protected function isAnsiAllowed(): bool
