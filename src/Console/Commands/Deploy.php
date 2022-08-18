@@ -5,6 +5,7 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundlesAccessor;
+use Actengage\Deployer\Contracts\AnsiFilter;
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\CurrentBundleManager;
 use Illuminate\Support\Collection;
@@ -27,12 +28,11 @@ final class Deploy extends Command
     protected $description = 'Deploys an artifact bundle.';
 
     public function handle(
-        LoggerRepository $logger,
         BundlesAccessor $bundles,
         CurrentBundleManager $currentBundle,
-        BundleDeployer $deployer
+        BundleDeployer $deployer,
     ): int {
-        $logger->set($this->createLogger());
+        $this->setup();
 
         $bundle = $this->getBundle($bundles->all(), $currentBundle);
 

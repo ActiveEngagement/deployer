@@ -6,6 +6,7 @@ use Actengage\Deployer\AnsiColor;
 use Actengage\Deployer\AnsiUtility;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundlesAccessor;
+use Actengage\Deployer\Contracts\AnsiFilter;
 use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\CurrentBundleManager;
 
@@ -21,12 +22,11 @@ final class Status extends Command
     protected $description = 'Displays information about the current deployment.';
 
     public function handle(
-        LoggerRepository $logger,
         BundlesAccessor $bundles,
         CurrentBundleManager $currentBundle,
-        AnsiUtility $ansi
+        AnsiUtility $ansi,
     ): int {
-        $logger->set($this->createLogger());
+        $this->setup();
 
         $all = $bundles->all();
         $currentNumber = $all->search(fn ($b) => $currentBundle->is($b));

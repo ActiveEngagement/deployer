@@ -2,6 +2,7 @@
 
 namespace Actengage\Deployer;
 
+use Actengage\Deployer\Contracts\AnsiFilter;
 use InvalidArgumentException;
 
 /**
@@ -21,14 +22,18 @@ class AnsiUtility
 
     public const RESET_COLOR = '39';
 
+    public function __construct(protected AnsiFilter $filter)
+    {
+    }
+
     public function bold(string $input): string
     {
-        return $this->code(self::BOLD_ON).$input.$this->code(self::BOLD_OFF);
+        return $this->coded(self::BOLD_ON, $input, self::BOLD_OFF);
     }
 
     public function colored(string $input, AnsiColor $color): string
     {
-        return $this->code($color->code()).$input.$this->code(self::RESET_COLOR);
+        return $this->coded($color->code(), $input, self::RESET_COLOR);
     }
 
     /**
@@ -50,5 +55,35 @@ class AnsiUtility
         }
 
         return "\033[".implode(';', $params).'m';
+    }
+
+    /**
+     * Codes the input.
+     * 
+     * Creates a "coded" version of the given string by prepending the given "on" code, and appending the given "off"
+     * code.
+     * 
+     * If ANSI output is disabled, the plain text is returned.
+     * 
+     * @param string $on the ANSI code that enables the ANSI effect.
+     * @param string $plain the input to "code."
+     * @param string $off the ANSI code that disables the ANSI effect.
+     * @return string
+     */
+    protected function coded(string $on, string $plain, string $off): string
+    {
+        return $this->filtered($plain, $this->code($on).$plain.$this->code($off));
+    }
+
+    /**
+     * Filters output.
+     * 
+     * Returns the given plain output, if ANSI output is disabled, or the ANSI output if not.
+     * 
+     * @return string
+     */
+    protected function filtered(string $plain, string $ansi): string
+    {
+        return $this->filter->allowed() ? $ansi : $plain;
     }
 }

@@ -3,6 +3,8 @@
 namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\CommandLogger;
+use Actengage\Deployer\Contracts\AnsiFilter;
+use Actengage\Deployer\Contracts\LoggerRepository;
 use Illuminate\Console\Command as BaseCommand;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -15,6 +17,23 @@ use Psr\Log\LogLevel;
 abstract class Command extends BaseCommand
 {
     public const HEAD_BROKEN_MSG = 'The deployment head is broken. We are unable to determine the currently deployed bundle. Please fix this by running "php artisan deployer --latest".';
+
+    /**
+     * Sets up dependencies.
+     * 
+     * Sets up dependencies common to all commands in this package.
+     * 
+     * In particular, it:
+     *   - sets up a logger based on the requested verbosity level, and
+     *   - filters ANSI output based on the `--ansi` / `--no-ansi` flags.
+     * 
+     * @return void
+     */
+    protected function setup(): void
+    {
+        app()->make(LoggerRepository::class)->set($this->createLogger());
+        app()->make(AnsiFilter::class)->allow($this->isAnsiAllowed());
+    }
 
     /**
      * Creates a logger.
@@ -33,6 +52,18 @@ abstract class Command extends BaseCommand
         };
 
         return new CommandLogger($this, $logLevel);
+    }
+
+    /**
+     * Gets whether ANSI is allowed.
+     * 
+     * Determines whether ANSI output is allowed for this command by checking for the presense of the `--no-ansi` flag.
+     * 
+     * @return bool
+     */
+    protected function isAnsiAllowed(): bool
+    {
+        return $this->getOutput()->isDecorated();
     }
 
     /**
