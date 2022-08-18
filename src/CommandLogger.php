@@ -23,7 +23,11 @@ class CommandLogger extends AbstractLogger
      * @param  Command  $cmd the Artisan command whose output should be written to.
      * @param  int  $level the minimum log level on which to write.
      */
-    public function __construct(protected Command $cmd, protected string $level)
+    public function __construct(
+        protected AnsiUtility $ansi,
+        protected Command $cmd,
+        protected string $level
+    )
     {
     }
 
@@ -33,29 +37,16 @@ class CommandLogger extends AbstractLogger
             return;
         }
 
-        $this->writeMessage($level, $this->formatMessage($level, $message));
-    }
-
-    protected function writeMessage(string $level, string $message): void
-    {
+        $levelString = '['.Str::upper($level).']';
         $priority = $this->getLevelPriority($level);
 
         if ($priority <= 3) {
-            $this->cmd->error($message);
-        } elseif ($level === 4) {
-            $this->cmd->warn($message);
-        } elseif ($level === 6) {
-            $this->cmd->info($message);
-        } else {
-            $this->cmd->line($message);
+            $levelString = $this->ansi->colored($levelString, AnsiColor::RED);
+        } elseif ($priority <= 5) {
+            $levelString = $this->ansi->colored($levelString, AnsiColor::YELLOW);
         }
-    }
 
-    protected function formatMessage(string $level, string|Stringable $message): string
-    {
-        $levelString = Str::upper($level);
-
-        return "[$levelString] $message";
+        $this->cmd->line("$levelString $message");
     }
 
     protected function getLevelPriority(string $level): int
