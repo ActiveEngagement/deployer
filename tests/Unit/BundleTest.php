@@ -17,9 +17,11 @@ class BundleTest extends TestCase
             'env' => 'production',
             'version' => 'v1',
             'bundled_at' => 1660327468,
-            'committed_at' => 1660327484,
-            'git_ref' => 'master',
-            'ci_job' => 'build',
+            'extra' => [
+                'committed_at' => 1660327484,
+                'git_ref' => 'master',
+                'ci_job' => 'build',
+            ]
         ]));
 
         $this->assertEquals('/some/random/path', $bundle->path);
@@ -28,9 +30,9 @@ class BundleTest extends TestCase
         $this->assertEquals('production', $bundle->env);
         $this->assertEquals('v1', $bundle->version);
         $this->assertEquals(Carbon::parse('Fri Aug 12 2022 18:04:28 GMT+0000'), $bundle->bundled_at);
-        $this->assertEquals(Carbon::parse('Fri Aug 12 2022 18:04:44 GMT+0000'), $bundle->committed_at);
-        $this->assertEquals('master', $bundle->git_ref);
-        $this->assertEquals('build', $bundle->ci_job);
+        $this->assertEquals('1660327484', $bundle->extra->get('committed_at'));
+        $this->assertEquals('master', $bundle->extra->get('git_ref'));
+        $this->assertEquals('build', $bundle->extra->get('ci_job'));
     }
 
     public function test__fromJson__withoutOptional__nullifies()
@@ -42,9 +44,7 @@ class BundleTest extends TestCase
         $this->assertNull($bundle->initiator);
         $this->assertNull($bundle->env);
         $this->assertNull($bundle->version);
-        $this->assertNull($bundle->committed_at);
-        $this->assertNull($bundle->git_ref);
-        $this->assertNull($bundle->ci_job);
+        $this->assertNull($bundle->extra);
     }
 
     public function test__fromJson__withoutRequired__throwsException()

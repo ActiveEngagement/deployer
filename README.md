@@ -186,12 +186,10 @@ The manifest file has the following schema (without comments, of course):
   "version": "v1.1.13",
   // REQUIRED. A Unix timestamp representing the time at which this bundle was built.
   "bundled_at": 1660748148,
-  // A Unix timestamp representing the time at which the commit was create for which this bundle was built.
-  "committed_at": 1660747824,
-  // The Git ref for which this bundle was built, if applicable.
-  "git_ref": "refs/tags/v1.1.13",
-  // A string indicating the CI/CD "job" that built this bundle, if applicable.
-  "ci_job": "production"
+  // Extra properties with non-standard metadata. You can put whatever proeprties you want in here.
+  "extra": {
+    // custom properties
+  }
 }
 ```
 

@@ -3,6 +3,7 @@
 namespace Actengage\Deployer;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
@@ -27,10 +28,7 @@ final class Bundle
      * @param  ?string  $version the release version for which this bundle was built. This likely will only apply to
      * production builds.
      * @param  Carbon  $bundled_at the datetime at which this bundle was built.
-     * @param  ?Carbon  $committed_at the datetime at which the Git commit for which this bundle was built was committed.
-     * @param  ?string  $git_ref a Git reference (e.g. `"refs/heads/master"`) associated with the bundle.
-     * @param  ?string  $ci_job if the bundle was built in a CI environment, the name of the CI job or runner that built
-     * the bundle.
+     * @param  ?Collection $extra an array of extra, non-standard metadata about the bundle.
      */
     public function __construct(
         public string $path,
@@ -39,9 +37,7 @@ final class Bundle
         public ?string $env,
         public ?string $version,
         public Carbon $bundled_at,
-        public ?Carbon $committed_at,
-        public ?string $git_ref,
-        public ?string $ci_job
+        public ?Collection $extra
     ) {
     }
 
@@ -94,25 +90,12 @@ final class Bundle
             env: $array->get('env'),
             version: $array->get('version'),
             bundled_at: Carbon::createFromTimestamp($array->get('bundled_at')),
-            committed_at: self::tryParseTimestamp($array->get('committed_at')),
-            git_ref: $array->get('git_ref'),
-            ci_job: $array->get('ci_job'),
+            extra: static::tryCollect($array->get('extra'))
         );
     }
 
-    /**
-     * Tries to parse a timestamp.
-     *
-     * Attempts to parse the given string into a timestamp. If the string is falsy, then `null` is returned.
-     *
-     * @return ?Carbon
-     */
-    private static function tryParseTimestamp(?string $input): ?Carbon
+    protected static function tryCollect(?array $input): ?Collection
     {
-        if (! $input) {
-            return null;
-        }
-
-        return Carbon::createFromTimestamp($input);
+        return $input ? collect($input) : null;
     }
 }
