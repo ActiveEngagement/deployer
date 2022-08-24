@@ -5,7 +5,7 @@ This simple package provides an easy way to deploy pre-built artifacts (maybe ar
 ## Requirements
 
 - Laravel 9.x+
-- PHP 8.1+
+- PHP 8.0+
 
 ## Getting Started
 
