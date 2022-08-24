@@ -5,6 +5,7 @@ namespace Actengage\Deployer\Console\Commands;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundleDeployer;
 use Actengage\Deployer\BundlesAccessor;
+use Actengage\Deployer\Contracts\LoggerRepository;
 use Actengage\Deployer\CurrentBundleManager;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;

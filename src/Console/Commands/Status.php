@@ -3,7 +3,6 @@
 namespace Actengage\Deployer\Console\Commands;
 
 use Actengage\Deployer\AnsiColor;
-use Actengage\Deployer\AnsiUtility;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\CurrentBundleManager;
@@ -22,7 +21,6 @@ final class Status extends Command
     public function handle(
         BundlesAccessor $bundles,
         CurrentBundleManager $currentBundle,
-        AnsiUtility $ansi,
     ): int {
         $this->setup();
 
@@ -37,14 +35,14 @@ final class Status extends Command
         }
 
         if ($bundle->commit) {
-            $this->line('Commit '.$ansi->bold($bundle->shortCommit()));
+            $this->line('Commit <options=bold>'.$bundle->shortCommit().'</options=bold>');
         }
 
         if ($bundle->version) {
-            $this->line('Version '.$ansi->bold($bundle->version));
+            $this->line('Version <options=bold>'.$bundle->version.'</options=bold>');
         }
 
-        $initiator = $ansi->bold($bundle->initiator ?? $ansi->colored('unknown author', AnsiColor::YELLOW));
+        $initiator = '<options=bold>'.($bundle->initiator ?? '<fg=yellow>unknown author</fg=yellow>').'</options=bold>';
         $this->line("Created by $initiator");
 
         $timestamp = $bundle->bundled_at->format('Y-m-d h:i A');
@@ -53,7 +51,7 @@ final class Status extends Command
         $this->newLine();
 
         if ($currentNumber === 0) {
-            $this->line('You are '.$ansi->colored('up to date', AnsiColor::GREEN).' with the latest deployment.');
+            $this->line('You are <fg=green>up to date</fg=green> with the latest deployment.');
         } elseif ($currentNumber === 1) {
             $this->warn('You are 1 deployment behind.');
         } else {
