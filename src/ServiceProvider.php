@@ -7,7 +7,6 @@ use Actengage\Deployer\Console\Commands\ListBundles;
 use Actengage\Deployer\Console\Commands\Prune;
 use Actengage\Deployer\Console\Commands\Rollback;
 use Actengage\Deployer\Console\Commands\Status;
-use Actengage\Deployer\Contracts\AnsiFilter as AnsiFilterInterface;
 use Actengage\Deployer\Contracts\LoggerRepository as LoggerRepositoryInterface;
 use Actengage\Deployer\Contracts\PathProvider as PathProviderInterface;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -41,7 +40,6 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(BundlePruner::class);
         $this->app->singleton(PathProviderInterface::class, PathProvider::class);
         $this->app->singleton(LoggerRepositoryInterface::class, LoggerRepository::class);
-        $this->app->singleton(AnsiFilterInterface::class, AnsiFilter::class);
 
         $this->app->when(PathProvider::class)
             ->needs('$deploymentDir')

@@ -2,7 +2,6 @@
 
 namespace Actengage\Deployer\Console\Commands;
 
-use Actengage\Deployer\AnsiUtility;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\CurrentBundleManager;
@@ -23,7 +22,6 @@ final class ListBundles extends Command
     public function handle(
         BundlesAccessor $bundles,
         CurrentBundleManager $currentBundle,
-        AnsiUtility $ansi,
     ): int {
         $this->setup();
 
@@ -44,7 +42,7 @@ final class ListBundles extends Command
             $this->warnHeadBroken();
         }
 
-        $all->each(function (Bundle $bundle, int $n) use (&$rows, $currentBundleNumber, $ansi) {
+        $all->each(function (Bundle $bundle, int $n) use (&$rows, $currentBundleNumber) {
             $current = $n === $currentBundleNumber;
 
             $rows[] = $this->row([
@@ -53,7 +51,7 @@ final class ListBundles extends Command
                 $bundle->initiator,
                 $bundle->version,
                 $bundle->shortCommit(),
-            ], $current, $ansi);
+            ], $current);
         });
 
         $this->table($headers, $rows);
@@ -61,8 +59,8 @@ final class ListBundles extends Command
         return 0;
     }
 
-    private function row(array $columns, bool $current, AnsiUtility $ansi): array
+    private function row(array $columns, bool $current): array
     {
-        return array_map(fn ($c) => $current ? $ansi->bold($c ?? '') : $c, $columns);
+        return array_map(fn ($c) => $current ? '<options=bold>'.$c.'</options=bold>' : $c, $columns);
     }
 }

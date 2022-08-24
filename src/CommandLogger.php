@@ -24,7 +24,6 @@ class CommandLogger extends AbstractLogger
      * @param  int  $level the minimum log level on which to write.
      */
     public function __construct(
-        protected AnsiUtility $ansi,
         protected Command $cmd,
         protected string $level
     ) {
@@ -40,9 +39,9 @@ class CommandLogger extends AbstractLogger
         $priority = $this->getLevelPriority($level);
 
         if ($priority <= 3) {
-            $levelString = $this->ansi->colored($levelString, AnsiColor::RED);
+            $levelString = '<error>'.$levelString.'</error>';
         } elseif ($priority <= 5) {
-            $levelString = $this->ansi->colored($levelString, AnsiColor::YELLOW);
+            $levelString = '<comment>'.$levelString.'</comment>';
         }
 
         $this->cmd->line("$levelString $message");
