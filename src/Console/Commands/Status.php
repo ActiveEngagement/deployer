@@ -2,7 +2,6 @@
 
 namespace Actengage\Deployer\Console\Commands;
 
-use Actengage\Deployer\AnsiColor;
 use Actengage\Deployer\Bundle;
 use Actengage\Deployer\BundlesAccessor;
 use Actengage\Deployer\CurrentBundleManager;
