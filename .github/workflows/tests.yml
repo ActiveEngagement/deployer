@@ -17,4 +17,8 @@ jobs:
     - name: Composer dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: PHPUnit Tests
-      run: vendor/bin/phpunit
+      run: vendor/bin/phpunit --coverage-clover ./coverage.xml
+    - name: Code Coverage Report
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
