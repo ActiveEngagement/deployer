@@ -1,6 +1,6 @@
 # Deployer
 
-![Version](https://img.shields.io/github/package-json/v/ActiveEngagement/deployer/master?label=Version)
+![Version](https://img.shields.io/github/v/tag/ActiveEngagement/deployer?sort=semver)
 ![Build Status](https://github.com/ActiveEngagement/deployer/actions/workflows/build.yaml/badge.svg)
 [![codecov](https://codecov.io/gh/ActiveEngagement/deployer/branch/master/graph/badge.svg?token=8XH09NOF6O)](https://codecov.io/gh/ActiveEngagement/deployer)
 ![MIT License](https://img.shields.io/github/license/ActiveEngagement/deployer)
