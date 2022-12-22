@@ -1,5 +1,10 @@
 # Deployer
 
+![Version](https://img.shields.io/github/v/tag/ActiveEngagement/deployer?sort=semver)
+![Build Status](https://github.com/ActiveEngagement/deployer/actions/workflows/tests.yml/badge.svg)
+[![codecov](https://codecov.io/gh/ActiveEngagement/deployer/branch/master/graph/badge.svg?token=8XH09NOF6O)](https://codecov.io/gh/ActiveEngagement/deployer)
+![MIT License](https://img.shields.io/github/license/ActiveEngagement/deployer)
+
 This simple package provides an easy way to deploy pre-built artifacts (maybe artifacted with [our GitHub action](https://github.com/ActiveEngagement/deployer-action)) to your application.
 
 ## Requirements
