@@ -137,7 +137,7 @@ Bundled 2022-08-17 02:55 PM
 You are up to date with the latest deployment.
 ```
 
-This command displays available metadata for the current deployment: the timestamp, and if they exist in the bundle manifest, the commit SHA, the version string, and the initiator.
+This command displays available metadata for the current deployment: the timestamp, and if they exist in the bundle manifest the commit SHA, the version string, and the initiator.
 
 It also indicates whether the current deployment is up to date with the latest one.
 
@@ -174,7 +174,7 @@ An artifact bundle in the context of the `deployer` package is simply a director
 
 The manifest file has the following schema (without comments, of course):
 
-```json
+```js
 {
   // The Git commit SHA for which this bundle was built, if applicable.
   "commit": "68ac745dc78a3b276350d9c22b52e907efaf85b7",
