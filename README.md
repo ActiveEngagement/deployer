@@ -1,5 +1,10 @@
 # Deployer
 
+![Version](https://img.shields.io/github/package-json/v/ActiveEngagement/deployer/master?label=Version)
+![Build Status](https://github.com/ActiveEngagement/deployer/actions/workflows/build.yaml/badge.svg)
+![Code Coverage](https://img.shields.io/coveralls/github/ActiveEngagement/deployer?logo=Jest)
+![MIT License](https://img.shields.io/github/license/ActiveEngagement/deployer)
+
 This simple package provides an easy way to deploy pre-built artifacts (maybe artifacted with [our GitHub action](https://github.com/ActiveEngagement/deployer-action)) to your application.
 
 ## Requirements
