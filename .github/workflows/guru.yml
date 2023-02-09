@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-deptch: 10
+          fetch-depth: 10
       - uses: ActiveEngagement/theguru@v0.5
         with:
           user_email: ${{ secrets.GURU_USER_EMAIL }}
