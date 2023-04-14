@@ -28,8 +28,6 @@ class BundlesAccessor
      * Bundles without a `manifest.json` are skipped (a log INFO is generated).
      *
      * Bundles are sorted in descending order by datetime.
-     *
-     * @return Collection
      */
     public function all(): Collection
     {

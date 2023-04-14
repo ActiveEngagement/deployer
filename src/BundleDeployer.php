@@ -44,7 +44,6 @@ class BundleDeployer
      * Deploys the artifact bundle at the given path.
      *
      * @param  string  $bundlePath  the full path to the bundle to deploy.
-     * @return void
      */
     public function deploy(string $bundlePath): void
     {
@@ -68,7 +67,6 @@ class BundleDeployer
      * level files/directories.
      *
      * @param  array<string, string>  $rules the artifact rules to validate.
-     * @return void
      *
      * @throws DeployerException if any invalid rules are found.
      */

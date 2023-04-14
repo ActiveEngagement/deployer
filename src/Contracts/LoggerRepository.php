@@ -13,16 +13,11 @@ interface LoggerRepository
 {
     /**
      * Should get the logger.
-     *
-     * @return LoggerInterface
      */
     public function get(): LoggerInterface;
 
     /**
      * Should set the logger.
-     *
-     * @param  LoggerInterface  $logger
-     * @return void
      */
     public function set(LoggerInterface $logger): void;
 }

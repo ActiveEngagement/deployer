@@ -35,7 +35,6 @@ class ArtifactDeployer
      *
      * @param  string  $from the full path to the extracted artifact being deployed.
      * @param  string  $to the path (relative to the deployment root) to which the artifact should be moved.
-     * @return void
      */
     public function deploy(string $from, string $to): void
     {

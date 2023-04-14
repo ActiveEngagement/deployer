@@ -45,8 +45,6 @@ final class Bundle
      * Gets a short commit SHA.
      *
      * Gets a truncated-to-7-characters version of the Git commit SHA.
-     *
-     * @return string
      */
     public function shortCommit(): string
     {
@@ -57,8 +55,6 @@ final class Bundle
      * Gets the file name.
      *
      * Gets the name of the bundle directory on disk by parsing its path on disk.
-     *
-     * @return string
      */
     public function fileName(): string
     {
@@ -90,7 +86,7 @@ final class Bundle
             env: $array->get('env'),
             version: $array->get('version'),
             bundled_at: Carbon::createFromTimestamp($array->get('bundled_at')),
-            extra: static::tryCollect($array->get('extra'))
+            extra: self::tryCollect($array->get('extra'))
         );
     }
 

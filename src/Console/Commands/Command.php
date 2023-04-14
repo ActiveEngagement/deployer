@@ -24,8 +24,6 @@ abstract class Command extends BaseCommand
      *
      * In particular, it:
      *   - sets up a logger based on the requested verbosity level, and
-     *
-     * @return void
      */
     protected function setup(): void
     {
@@ -36,8 +34,6 @@ abstract class Command extends BaseCommand
      * Creates a logger.
      *
      * Creates an appropriate `LoggerInterface` instance for this command, based on the `verbosity` option.
-     *
-     * @return LoggerInterface
      */
     protected function createLogger(): LoggerInterface
     {
@@ -84,8 +80,6 @@ abstract class Command extends BaseCommand
      *
      * Displays a warning on the console that the deployment head is broken, i.e. that the currently deployed bundle
      * could not be retrieved from the `HEAD` file.
-     *
-     * @return void
      */
     protected function warnHeadBroken(): void
     {
@@ -97,8 +91,6 @@ abstract class Command extends BaseCommand
      *
      * Displays an error on the console that the deployment head is broken, i.e. that the currently deployed bundle
      * could not be retrieved from the `HEAD` file.
-     *
-     * @return void
      */
     protected function errorHeadBroken(): void
     {

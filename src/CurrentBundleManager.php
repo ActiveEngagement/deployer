@@ -43,7 +43,6 @@ class CurrentBundleManager
      * Sets the currently deployed bundle by storing its name on disk in the `HEAD` file.
      *
      * @param  string  $name the name on disk of the bundle which should be marked "currenly deployed."
-     * @return void
      */
     public function set(string $name): void
     {
@@ -74,8 +73,6 @@ class CurrentBundleManager
      * Gets the head file path.
      *
      * Gets the full path to the `HEAD` file in which the currently deployed bundle is stored.
-     *
-     * @return string
      */
     protected function headFilePath(): string
     {

@@ -35,8 +35,6 @@ abstract class AbstractPathProvider implements PathProvider
      * Gets the unresolved bundles dir.
      *
      * Should get the raw, unresolved path to the bundles directory. It will be resolved from the deployment root.
-     *
-     * @return string
      */
     abstract protected function unresolvedBundlesDir(): string;
 
@@ -45,8 +43,6 @@ abstract class AbstractPathProvider implements PathProvider
      *
      * Should get the raw, unresolved path to the directory where deployer can store metadata (e.g. the current bundle).
      * It will be resolved from the deployment root.
-     *
-     * @return string
      */
     abstract protected function unresolvedMetaDir(): string;
 

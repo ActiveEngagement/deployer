@@ -50,7 +50,6 @@ class FilesystemUtility
      *
      * @param  string  $path the path to the directory whose children should be iterated over.
      * @param  callable  $callback the callback to invoke for each child.
-     * @return void
      */
     public function eachChild(string $path, callable $callback): void
     {
@@ -68,7 +67,6 @@ class FilesystemUtility
      * PHP's `rmdir()` only allows deleting empty directories.
      *
      * @param  string  $path the path to the file or directory to delete.
-     * @return void
      */
     public function delete(string $path): void
     {
@@ -91,7 +89,6 @@ class FilesystemUtility
      *
      * @param  string  $from the path to the file or directory to copy.
      * @param  string  $to the new path to which to copy the file or directory.
-     * @return void
      */
     public function copy(string $from, string $to): void
     {
